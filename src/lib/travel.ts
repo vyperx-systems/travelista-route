@@ -23,12 +23,12 @@ export const PACKAGE_SELECT =
   "id, code, name, destination, country, category, summary, description, cover_image, days, nights, price_inr, max_travelers, locations_count, rating, reviews_count, is_featured, status, itinerary, inclusions, exclusions, terms, cancellation_policy, created_at";
 
 export async function fetchPackages(filters?: {
-  category?: "domestic" | "international";
-  search?: string;
-  maxPrice?: number;
-  minRating?: number;
-  featured?: boolean;
-  maxDays?: number;
+  category?: "domestic" | "international" | undefined;
+  search?: string | undefined;
+  maxPrice?: number | undefined;
+  minRating?: number | undefined;
+  featured?: boolean | undefined;
+  maxDays?: number | undefined;
 }) {
   let query = supabase
     .from("packages")
