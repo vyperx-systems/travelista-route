@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DomesticRouteImport } from './routes/domestic'
+import { Route as InternationalRouteImport } from './routes/international'
+import { Route as PackagesIndexRouteImport } from './routes/packages.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DomesticRoute = DomesticRouteImport.update({
+  id: '/domestic',
+  path: '/domestic',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InternationalRoute = InternationalRouteImport.update({
+  id: '/international',
+  path: '/international',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PackagesIndexRoute = PackagesIndexRouteImport.update({
+  id: '/packages/',
+  path: '/packages/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/domestic': typeof DomesticRoute
+  '/international': typeof InternationalRoute
+  '/packages/': typeof PackagesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/domestic': typeof DomesticRoute
+  '/international': typeof InternationalRoute
+  '/packages': typeof PackagesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/domestic': typeof DomesticRoute
+  '/international': typeof InternationalRoute
+  '/packages/': typeof PackagesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/domestic' | '/international' | '/packages/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/domestic' | '/international' | '/packages'
+  id: '__root__' | '/' | '/domestic' | '/international' | '/packages/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DomesticRoute: typeof DomesticRoute
+  InternationalRoute: typeof InternationalRoute
+  PackagesIndexRoute: typeof PackagesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/domestic': {
+      id: '/domestic'
+      path: '/domestic'
+      fullPath: '/domestic'
+      preLoaderRoute: typeof DomesticRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/international': {
+      id: '/international'
+      path: '/international'
+      fullPath: '/international'
+      preLoaderRoute: typeof InternationalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/packages/': {
+      id: '/packages/'
+      path: '/packages'
+      fullPath: '/packages/'
+      preLoaderRoute: typeof PackagesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DomesticRoute: DomesticRoute,
+  InternationalRoute: InternationalRoute,
+  PackagesIndexRoute: PackagesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
