@@ -10,13 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as DomesticRouteImport } from './routes/domestic'
 import { Route as InternationalRouteImport } from './routes/international'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SavedRouteImport } from './routes/saved'
 import { Route as PackagesIndexRouteImport } from './routes/packages.index'
+import { Route as PackagesIdRouteImport } from './routes/packages.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingsRoute = BookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DomesticRoute = DomesticRouteImport.update({
@@ -29,43 +44,106 @@ const InternationalRoute = InternationalRouteImport.update({
   path: '/international',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PackagesIndexRoute = PackagesIndexRouteImport.update({
   id: '/packages/',
   path: '/packages/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PackagesIdRoute = PackagesIdRouteImport.update({
+  id: '/packages/$id',
+  path: '/packages/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/bookings': typeof BookingsRoute
   '/domestic': typeof DomesticRoute
   '/international': typeof InternationalRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/packages/$id': typeof PackagesIdRoute
   '/packages/': typeof PackagesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/bookings': typeof BookingsRoute
   '/domestic': typeof DomesticRoute
   '/international': typeof InternationalRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/packages/$id': typeof PackagesIdRoute
   '/packages': typeof PackagesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/bookings': typeof BookingsRoute
   '/domestic': typeof DomesticRoute
   '/international': typeof InternationalRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/packages/$id': typeof PackagesIdRoute
   '/packages/': typeof PackagesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/domestic' | '/international' | '/packages/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/bookings'
+    | '/domestic'
+    | '/international'
+    | '/profile'
+    | '/saved'
+    | '/packages/$id'
+    | '/packages/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/domestic' | '/international' | '/packages'
-  id: '__root__' | '/' | '/domestic' | '/international' | '/packages/'
+  to:
+    | '/'
+    | '/auth'
+    | '/bookings'
+    | '/domestic'
+    | '/international'
+    | '/profile'
+    | '/saved'
+    | '/packages/$id'
+    | '/packages'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/bookings'
+    | '/domestic'
+    | '/international'
+    | '/profile'
+    | '/saved'
+    | '/packages/$id'
+    | '/packages/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  BookingsRoute: typeof BookingsRoute
   DomesticRoute: typeof DomesticRoute
   InternationalRoute: typeof InternationalRoute
+  ProfileRoute: typeof ProfileRoute
+  SavedRoute: typeof SavedRoute
+  PackagesIdRoute: typeof PackagesIdRoute
   PackagesIndexRoute: typeof PackagesIndexRoute
 }
 
@@ -76,6 +154,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bookings': {
+      id: '/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof BookingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/domestic': {
@@ -92,6 +184,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InternationalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/packages/': {
       id: '/packages/'
       path: '/packages'
@@ -99,13 +205,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PackagesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/packages/$id': {
+      id: '/packages/$id'
+      path: '/packages/$id'
+      fullPath: '/packages/$id'
+      preLoaderRoute: typeof PackagesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  BookingsRoute: BookingsRoute,
   DomesticRoute: DomesticRoute,
   InternationalRoute: InternationalRoute,
+  ProfileRoute: ProfileRoute,
+  SavedRoute: SavedRoute,
+  PackagesIdRoute: PackagesIdRoute,
   PackagesIndexRoute: PackagesIndexRoute,
 }
 export const routeTree = rootRouteImport
