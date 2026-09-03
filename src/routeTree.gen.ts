@@ -10,11 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BookingsRouteImport } from './routes/bookings'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DomesticRouteImport } from './routes/domestic'
 import { Route as InternationalRouteImport } from './routes/international'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as PackagesIndexRouteImport } from './routes/packages.index'
 import { Route as PackagesIdRouteImport } from './routes/packages.$id'
@@ -22,6 +25,11 @@ import { Route as PackagesIdRouteImport } from './routes/packages.$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -32,6 +40,11 @@ const AuthRoute = AuthRouteImport.update({
 const BookingsRoute = BookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DomesticRoute = DomesticRouteImport.update({
@@ -47,6 +60,11 @@ const InternationalRoute = InternationalRouteImport.update({
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SavedRoute = SavedRouteImport.update({
@@ -67,22 +85,28 @@ const PackagesIdRoute = PackagesIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/bookings': typeof BookingsRoute
+  '/contact': typeof ContactRoute
   '/domestic': typeof DomesticRoute
   '/international': typeof InternationalRoute
   '/profile': typeof ProfileRoute
+  '/reviews': typeof ReviewsRoute
   '/saved': typeof SavedRoute
   '/packages/$id': typeof PackagesIdRoute
   '/packages/': typeof PackagesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/bookings': typeof BookingsRoute
+  '/contact': typeof ContactRoute
   '/domestic': typeof DomesticRoute
   '/international': typeof InternationalRoute
   '/profile': typeof ProfileRoute
+  '/reviews': typeof ReviewsRoute
   '/saved': typeof SavedRoute
   '/packages/$id': typeof PackagesIdRoute
   '/packages': typeof PackagesIndexRoute
@@ -90,11 +114,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/bookings': typeof BookingsRoute
+  '/contact': typeof ContactRoute
   '/domestic': typeof DomesticRoute
   '/international': typeof InternationalRoute
   '/profile': typeof ProfileRoute
+  '/reviews': typeof ReviewsRoute
   '/saved': typeof SavedRoute
   '/packages/$id': typeof PackagesIdRoute
   '/packages/': typeof PackagesIndexRoute
@@ -103,33 +130,42 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/auth'
     | '/bookings'
+    | '/contact'
     | '/domestic'
     | '/international'
     | '/profile'
+    | '/reviews'
     | '/saved'
     | '/packages/$id'
     | '/packages/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/auth'
     | '/bookings'
+    | '/contact'
     | '/domestic'
     | '/international'
     | '/profile'
+    | '/reviews'
     | '/saved'
     | '/packages/$id'
     | '/packages'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/auth'
     | '/bookings'
+    | '/contact'
     | '/domestic'
     | '/international'
     | '/profile'
+    | '/reviews'
     | '/saved'
     | '/packages/$id'
     | '/packages/'
@@ -137,11 +173,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   BookingsRoute: typeof BookingsRoute
+  ContactRoute: typeof ContactRoute
   DomesticRoute: typeof DomesticRoute
   InternationalRoute: typeof InternationalRoute
   ProfileRoute: typeof ProfileRoute
+  ReviewsRoute: typeof ReviewsRoute
   SavedRoute: typeof SavedRoute
   PackagesIdRoute: typeof PackagesIdRoute
   PackagesIndexRoute: typeof PackagesIndexRoute
@@ -156,6 +195,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -168,6 +214,13 @@ declare module '@tanstack/react-router' {
       path: '/bookings'
       fullPath: '/bookings'
       preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/domestic': {
@@ -189,6 +242,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/saved': {
@@ -217,11 +277,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   BookingsRoute: BookingsRoute,
+  ContactRoute: ContactRoute,
   DomesticRoute: DomesticRoute,
   InternationalRoute: InternationalRoute,
   ProfileRoute: ProfileRoute,
+  ReviewsRoute: ReviewsRoute,
   SavedRoute: SavedRoute,
   PackagesIdRoute: PackagesIdRoute,
   PackagesIndexRoute: PackagesIndexRoute,
