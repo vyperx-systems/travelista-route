@@ -19,6 +19,11 @@ export function titleCase(value: string): string {
 
 export const WHATSAPP_NUMBER = "919000000000";
 
+export function whatsappUrl(message: string): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+
 export function whatsappEnquiryUrl(pkg: {
   code: string;
   name: string;
