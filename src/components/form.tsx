@@ -21,7 +21,7 @@ export function FieldFrame({
   floated: boolean;
   error?: string | undefined;
   hint?: string | undefined;
-  className?: string;
+  className?: string | undefined;
   children: ReactNode;
 }) {
   return (
@@ -61,7 +61,7 @@ type BaseProps = {
   onChange: (value: string) => void;
   error?: string | undefined;
   hint?: string | undefined;
-  className?: string;
+  className?: string | undefined;
   placeholder?: string;
 };
 
@@ -182,7 +182,7 @@ export function SubmitButton({
 }: {
   busy?: boolean;
   children: ReactNode;
-  className?: string;
+  className?: string | undefined;
   type?: "submit" | "button";
   onClick?: () => void;
   disabled?: boolean;
