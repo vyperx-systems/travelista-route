@@ -1,9 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { ArrowRight, Check, ShieldCheck, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { signupSchema } from "@/lib/travel";
 import { useAuth } from "@/hooks/useAuth";
+import { TextField, SubmitButton } from "@/components/form";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -19,10 +21,19 @@ export const Route = createFileRoute("/auth")({
         property: "og:description",
         content: "Access saved trips, bookings and reviews on your Saffron Atlas account.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AuthPage,
 });
+
+const PERKS = [
+  "Save packages and compare them later",
+  "Book with a unique booking reference",
+  "Track booking and payment status",
+  "Review trips once you are back home",
+];
 
 function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -42,8 +53,13 @@ function AuthPage() {
     if (!loading && user) navigate({ to: "/", replace: true });
   }, [loading, user, navigate]);
 
-  const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setForm((f) => ({ ...f, [key]: e.target.value }));
+  const set = (key: keyof typeof form) => (value: string) =>
+    setForm((f) => ({ ...f, [key]: value }));
+
+  const later = () => {
+    if (typeof window !== "undefined") window.localStorage.setItem("sa_auth_skipped", "1");
+    navigate({ to: "/", replace: true });
+  };
 
   const signIn = async () => {
     setBusy(true);
@@ -57,6 +73,7 @@ function AuthPage() {
       toast.error(error.message);
       return;
     }
+    if (typeof window !== "undefined") window.localStorage.setItem("sa_auth_skipped", "1");
     toast.success("Welcome back");
     navigate({ to: "/", replace: true });
   };
@@ -86,127 +103,153 @@ function AuthPage() {
       toast.error(error.message);
       return;
     }
+    window.localStorage.setItem("sa_auth_skipped", "1");
     toast.success("Account created. If email confirmation is on, check your inbox.");
     navigate({ to: "/", replace: true });
   };
 
   return (
-    <section className="mx-auto grid max-w-[1240px] gap-10 px-5 py-14 md:px-8 lg:grid-cols-2">
-      <div>
-        <div className="label-mono text-primary">Traveller account</div>
-        <h1 className="mt-3 text-[38px] leading-[1.05]">
-          {mode === "signin" ? "Welcome back." : "Start planning."}
-        </h1>
-        <p className="mt-4 max-w-[46ch] text-[15px] text-muted-foreground">
-          One account for saved packages, bookings with a unique reference, and reviews once you are
-          back home.
-        </p>
-        <div className="mt-8 hidden overflow-hidden rounded-3xl lg:block">
-          <img
-            src="/images/kashmir.jpg"
-            alt="Snow-lined valley in Kashmir"
-            className="aspect-4/3 size-full object-cover"
-          />
-        </div>
-      </div>
+    <section className="relative overflow-hidden">
+      <div className="pointer-events-none absolute -left-40 -top-40 size-[520px] rounded-full bg-primary/15 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-52 -right-32 size-[460px] rounded-full bg-lagoon/15 blur-3xl" />
 
-      <div className="rounded-3xl border border-border bg-card p-6 md:p-8">
-        <div className="flex gap-2">
-          <button
-            onClick={() => setMode("signin")}
-            className={`chip ${mode === "signin" ? "chip-on" : ""}`}
-          >
-            Sign in
-          </button>
-          <button
-            onClick={() => setMode("signup")}
-            className={`chip ${mode === "signup" ? "chip-on" : ""}`}
-          >
-            Create account
-          </button>
+      <div className="relative mx-auto grid max-w-[1240px] items-center gap-10 px-5 py-14 md:px-8 lg:grid-cols-[1fr_480px] lg:gap-16">
+        <div>
+          <div className="label-mono text-primary">Traveller account</div>
+          <h1 className="mt-3 text-[40px] leading-[1.02] sm:text-[52px]">
+            {mode === "signin" ? "Welcome back." : "Start planning."}
+          </h1>
+          <p className="mt-4 max-w-[46ch] text-[15px] text-muted-foreground">
+            One account for saved packages, bookings with a unique reference, and reviews once you
+            are back home. You can always browse first and sign in later.
+          </p>
+
+          <ul className="mt-7 grid gap-2.5">
+            {PERKS.map((p, i) => (
+              <li
+                key={p}
+                style={{ animationDelay: `${i * 70}ms` }}
+                className="flex animate-in items-center gap-2.5 text-[14px] text-muted-foreground fade-in slide-in-from-bottom-2 duration-700"
+              >
+                <span className="grid size-5 shrink-0 place-items-center rounded-full bg-primary/12 text-primary">
+                  <Check className="size-3" />
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8 hidden overflow-hidden rounded-3xl lg:block">
+            <img
+              src="/images/kashmir.jpg"
+              alt="Snow-lined valley in Kashmir"
+              width={1600}
+              height={1200}
+              className="aspect-16/9 size-full object-cover"
+            />
+          </div>
         </div>
 
-        <form
-          className="mt-6 grid gap-4"
-          onSubmit={(e) => {
-            e.preventDefault();
-            void (mode === "signin" ? signIn() : signUp());
-          }}
-        >
-          {mode === "signup" && (
-            <>
-              <Field label="Full name" error={errors["fullName"]}>
-                <input className="field" value={form.fullName} onChange={set("fullName")} />
-              </Field>
-              <Field label="Mobile number" error={errors["mobile"]}>
-                <input className="field" value={form.mobile} onChange={set("mobile")} />
-              </Field>
-            </>
-          )}
-          <Field label="Email" error={errors["email"]}>
-            <input
-              className="field"
+        <div className="rounded-3xl border border-border bg-card/90 p-6 shadow-[0_24px_60px_-30px_oklch(0.262_0.029_55_/_35%)] backdrop-blur md:p-8">
+          <div className="relative grid grid-cols-2 gap-1 rounded-full border border-border bg-background p-1">
+            <span
+              aria-hidden
+              className="absolute inset-y-1 w-[calc(50%-0.25rem)] rounded-full bg-primary transition-transform duration-400 ease-soft"
+              style={{ transform: `translateX(${mode === "signin" ? "0.25rem" : "calc(100% + 0.25rem)"})` }}
+            />
+            {(["signin", "signup"] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => setMode(m)}
+                className={`relative z-10 rounded-full py-2.5 text-[13px] font-medium transition-colors duration-300 ${
+                  mode === m ? "text-primary-foreground" : "text-muted-foreground"
+                }`}
+              >
+                {m === "signin" ? "Sign in" : "Create account"}
+              </button>
+            ))}
+          </div>
+
+          <form
+            key={mode}
+            className="mt-6 grid animate-in gap-4 fade-in slide-in-from-bottom-2 duration-500"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void (mode === "signin" ? signIn() : signUp());
+            }}
+          >
+            {mode === "signup" && (
+              <>
+                <TextField
+                  label="Full name"
+                  value={form.fullName}
+                  onChange={set("fullName")}
+                  error={errors["fullName"]}
+                  placeholder="Ananya Sharma"
+                />
+                <TextField
+                  label="Mobile number"
+                  value={form.mobile}
+                  onChange={set("mobile")}
+                  error={errors["mobile"]}
+                  placeholder="+91 98765 43210"
+                />
+              </>
+            )}
+            <TextField
+              label="Email"
               type="email"
               autoComplete="email"
               value={form.email}
               onChange={set("email")}
+              error={errors["email"]}
+              placeholder="you@example.com"
             />
-          </Field>
-          <Field label="Password" error={errors["password"]}>
-            <input
-              className="field"
+            <TextField
+              label="Password"
               type="password"
               autoComplete={mode === "signin" ? "current-password" : "new-password"}
               value={form.password}
               onChange={set("password")}
+              error={errors["password"]}
+              {...(mode === "signup" ? { hint: "At least 8 characters." } : {})}
             />
-          </Field>
-          {mode === "signup" && (
-            <Field label="Confirm password" error={errors["confirmPassword"]}>
-              <input
-                className="field"
+            {mode === "signup" && (
+              <TextField
+                label="Confirm password"
                 type="password"
                 value={form.confirmPassword}
                 onChange={set("confirmPassword")}
+                error={errors["confirmPassword"]}
               />
-            </Field>
-          )}
+            )}
+
+            <SubmitButton busy={busy} className="mt-1 w-full">
+              {mode === "signin" ? "Sign in" : "Create account"} <ArrowRight className="size-4" />
+            </SubmitButton>
+          </form>
 
           <button
-            type="submit"
-            disabled={busy}
-            className="mt-1 rounded-xl bg-primary px-6 py-3 text-sm font-medium text-primary-foreground disabled:opacity-60"
+            type="button"
+            onClick={later}
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-medium text-muted-foreground transition-all duration-300 ease-soft hover:border-foreground hover:text-foreground active:scale-[0.98]"
           >
-            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
+            <Sparkles className="size-4" /> I will do it later
           </button>
-        </form>
 
-        <p className="mt-5 text-[12px] text-muted-foreground">
-          By continuing you agree to our terms. Need help?{" "}
-          <Link to="/contact" className="text-primary underline">
-            Contact us
-          </Link>
-          .
-        </p>
+          <p className="mt-5 flex items-start gap-2 text-[12px] text-muted-foreground">
+            <ShieldCheck className="mt-0.5 size-3.5 shrink-0 text-primary" />
+            <span>
+              Your details stay private and are only used for bookings. Need help?{" "}
+              <Link to="/contact" className="text-primary underline">
+                Contact us
+              </Link>
+              .
+            </span>
+          </p>
+        </div>
       </div>
     </section>
-  );
-}
-
-function Field({
-  label,
-  error,
-  children,
-}: {
-  label: string;
-  error?: string | undefined;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className="block">
-      <span className="label-mono">{label}</span>
-      <div className="mt-1.5">{children}</div>
-      {error && <span className="mt-1 block text-[12px] text-destructive">{error}</span>}
-    </label>
   );
 }
