@@ -5,6 +5,7 @@ import {
   createRootRouteWithContext,
   useRouter,
   useRouterState,
+  useNavigate,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -12,7 +13,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { AuthProvider } from "@/hooks/useAuth";
+import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Toaster } from "@/components/ui/sonner";
@@ -122,6 +123,25 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * First visit lands on the sign-in screen. "I'll do it later" on /auth stores a
+ * flag so the gate never nags again in this browser.
+ */
+function FirstVisitAuthGate() {
+  const { loading, user } = useAuth();
+  const navigate = useNavigate();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    if (loading || user || pathname === "/auth") return;
+    if (typeof window === "undefined") return;
+    if (window.localStorage.getItem("sa_auth_skipped") === "1") return;
+    navigate({ to: "/auth", replace: true });
+  }, [loading, user, pathname, navigate]);
+
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
@@ -140,6 +160,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <FirstVisitAuthGate />
         <div className="flex min-h-screen flex-col">
           {!isAdmin && <SiteHeader />}
           <main className="flex-1">

@@ -1,31 +1,61 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 import { inr } from "@/lib/format";
 import type { Package } from "@/lib/travel";
+import { galleryOf } from "@/lib/gallery";
 import { SaveButton } from "@/components/SaveButton";
 
 export function PackageCard({ pkg, delay = 0 }: { pkg: Package; delay?: number }) {
+  const images = galleryOf(pkg);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) return;
+    const t = setInterval(() => setIndex((i) => (i + 1) % images.length), 4000);
+    return () => clearInterval(t);
+  }, [images.length]);
+
   return (
     <article
       data-reveal
       style={{ transitionDelay: `${delay}ms` }}
-      className="overflow-hidden rounded-3xl border border-border bg-card"
+      className="group overflow-hidden rounded-3xl border border-border bg-card transition-all duration-500 ease-soft hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_oklch(0.262_0.029_55_/_45%)]"
     >
       <div className="relative aspect-4/3 overflow-hidden">
-        <img
-          src={pkg.cover_image || "/images/hero.jpg"}
-          alt={`${pkg.destination} — ${pkg.name}`}
-          loading="lazy"
-          width={1280}
-          height={960}
-          className="size-full object-cover transition-transform duration-700 ease-soft hover:scale-105"
-        />
+        {images.map((src, i) => (
+          <img
+            key={`${src}-${i}`}
+            src={src}
+            alt={`${pkg.destination} — ${pkg.name}`}
+            loading={i === 0 ? "lazy" : "lazy"}
+            width={1280}
+            height={960}
+            className={`absolute inset-0 size-full object-cover transition-all duration-[1100ms] ease-soft ${
+              i === index ? "scale-100 opacity-100" : "scale-105 opacity-0"
+            }`}
+          />
+        ))}
         <span className="chip absolute left-3 top-3">
           {pkg.category === "domestic" ? "Domestic" : "International"}
         </span>
         <div className="absolute right-2.5 top-2.5">
           <SaveButton packageId={pkg.id} />
         </div>
+        {images.length > 1 && (
+          <div className="absolute inset-x-0 bottom-3 flex justify-center gap-1.5">
+            {images.map((src, i) => (
+              <button
+                key={`dot-${src}-${i}`}
+                aria-label={`Show image ${i + 1}`}
+                onClick={() => setIndex(i)}
+                className={`h-1 rounded-full transition-all duration-500 ${
+                  i === index ? "w-6 bg-cream" : "w-2.5 bg-cream/55"
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="p-5">

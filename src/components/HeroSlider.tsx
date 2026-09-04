@@ -70,7 +70,7 @@ export function HeroSlider({
 
   useEffect(() => {
     if (paused || slides.length < 2) return;
-    timer.current = setInterval(() => setIndex((i) => (i + 1) % slides.length), 5000);
+    timer.current = setInterval(() => setIndex((i) => (i + 1) % slides.length), 4000);
     return () => {
       if (timer.current) clearInterval(timer.current);
     };

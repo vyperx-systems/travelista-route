@@ -36,6 +36,10 @@ function Home() {
     queryKey: ["packages", "featured-home"],
     queryFn: () => fetchPackages({ featured: true }),
   });
+  const { data: heroPackages } = useQuery({
+    queryKey: ["packages", "hero", category],
+    queryFn: () => fetchPackages({ category }),
+  });
   const { data: reviews } = useQuery({
     queryKey: ["reviews", "home"],
     queryFn: () => fetchApprovedReviews(),
@@ -54,71 +58,48 @@ function Home() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="mx-auto max-w-[1240px] px-5 pb-10 pt-12 md:px-8 md:pt-16">
-        <div className="grid items-end gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <div className="label-mono mb-5 text-primary">Curated journeys · est. 2016</div>
-            <h1 className="text-[40px] leading-[1.02] sm:text-[54px]">
-              Explore the world. Create memories.
-            </h1>
-            <p className="mt-5 max-w-[42ch] text-[15px] text-muted-foreground">
-              Slow, story-first itineraries across India and the world — hand-built by people who
-              have walked every mile. Every fare shown in rupees, per person.
-            </p>
-            <div className="mt-7 flex items-center gap-3">
+      {/* HERO — full-bleed self-sliding destination showcase */}
+      <HeroSlider
+        packages={heroPackages}
+        eyebrow="Curated journeys · est. 2016"
+        headline="Explore the world. Create memories."
+      >
+        <div className="grid gap-3 sm:max-w-[560px]">
+          <div className="flex items-center gap-2">
+            {(["domestic", "international"] as const).map((c) => (
               <button
-                onClick={() => setCategory("domestic")}
-                className={`chip ${category === "domestic" ? "chip-on" : ""}`}
+                key={c}
+                onClick={() => setCategory(c)}
+                className={`chip transition-all duration-300 ${
+                  category === c ? "chip-on" : "bg-background/70 backdrop-blur"
+                }`}
               >
-                Domestic
+                {c === "domestic" ? "Domestic" : "International"}
               </button>
-              <button
-                onClick={() => setCategory("international")}
-                className={`chip ${category === "international" ? "chip-on" : ""}`}
-              >
-                International
-              </button>
-            </div>
+            ))}
           </div>
 
-          <div className="lg:col-span-7">
-            <div className="aspect-16/10 overflow-hidden rounded-3xl">
-              <img
-                src="/images/hero.jpg"
-                alt="Golden sunrise over Himalayan ridges"
-                width={1920}
-                height={1080}
-                className="size-full object-cover"
+          <div className="flex items-center gap-2 rounded-2xl border border-cream/25 bg-background/90 p-1.5 backdrop-blur">
+            <div className="flex flex-1 items-center gap-2 px-3">
+              <Search className="size-4 text-muted-foreground" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && explore()}
+                placeholder="Kashmir, Kerala, Dubai, Bali…"
+                className="w-full bg-transparent py-2.5 text-sm outline-none placeholder:text-muted-foreground"
               />
             </div>
-
-            <div className="mt-4 rounded-3xl border border-border bg-card p-4 md:p-5">
-              <div className="grid items-end gap-3 sm:grid-cols-[1fr_auto]">
-                <label className="block">
-                  <span className="label-mono">Search</span>
-                  <div className="mt-1.5 flex items-center gap-2 rounded-xl border border-border bg-background px-3.5 py-2.5">
-                    <Search className="size-4 text-muted-foreground" />
-                    <input
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      onKeyDown={(e) => e.key === "Enter" && explore()}
-                      placeholder="Kashmir, Kerala, Dubai, Bali…"
-                      className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-                    />
-                  </div>
-                </label>
-                <button
-                  onClick={explore}
-                  className="h-[46px] rounded-xl bg-primary px-6 text-sm font-medium text-primary-foreground transition-[filter] hover:brightness-105"
-                >
-                  Explore packages
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={explore}
+              className="rounded-xl bg-primary px-5 py-2.5 text-[13px] font-medium text-primary-foreground transition-all duration-300 ease-soft hover:brightness-105 active:scale-[0.98]"
+            >
+              Explore
+            </button>
           </div>
         </div>
-      </section>
+      </HeroSlider>
+
 
       {/* FEATURED */}
       <section className="mx-auto max-w-[1240px] px-5 py-8 md:px-8 md:py-12">
