@@ -163,6 +163,43 @@
   color: var(--muted-foreground);
 }
 
+/* Shared form control — one look for every form on the site */
+@utility field {
+  display: block;
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1px solid var(--input);
+  background-color: var(--background);
+  padding: 0.75rem 0.95rem;
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  outline: none;
+  transition:
+    border-color 0.25s var(--ease-soft),
+    box-shadow 0.25s var(--ease-soft),
+    background-color 0.25s var(--ease-soft);
+}
+
+.field::placeholder {
+  color: var(--muted-foreground);
+}
+
+.field:hover {
+  border-color: color-mix(in oklab, var(--primary) 45%, var(--input));
+}
+
+.field:focus {
+  border-color: var(--primary);
+  background-color: var(--card);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+textarea.field {
+  resize: vertical;
+}
+
+
 @utility panel {
   background-color: var(--card);
   border: 1px solid var(--border);
