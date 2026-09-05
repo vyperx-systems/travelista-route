@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Search, Star, ShieldCheck, MapPinned, Headphones } from "lucide-react";
 import { fetchApprovedReviews, fetchPackages } from "@/lib/travel";
 import { PackageCard } from "@/components/PackageCard";
+import { HeroSlider } from "@/components/HeroSlider";
 import { useReveal } from "@/hooks/useReveal";
 import { Skeleton } from "@/components/ui/skeleton";
 
