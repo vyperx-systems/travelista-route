@@ -17,6 +17,7 @@ import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider, themeBootstrapScript } from "@/components/ThemeToggle";
 import { supabase } from "@/integrations/supabase/client";
 
 function NotFoundComponent() {
@@ -114,6 +115,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
       </head>
       <body>
         {children}
@@ -160,6 +162,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <ThemeProvider>
         <FirstVisitAuthGate />
         <div className="flex min-h-screen flex-col">
           {!isAdmin && <SiteHeader />}
@@ -170,6 +173,7 @@ function RootComponent() {
           {!isAdmin && <SiteFooter />}
         </div>
         <Toaster position="top-center" />
+        </ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

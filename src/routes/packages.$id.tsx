@@ -16,6 +16,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { SaveButton } from "@/components/SaveButton";
 import { useReveal } from "@/hooks/useReveal";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ImageSlider } from "@/components/ImageSlider";
+import { galleryOf } from "@/lib/gallery";
 
 export const Route = createFileRoute("/packages/$id")({
   head: () => ({
@@ -147,13 +149,11 @@ function PackageDetail() {
       <section className="mx-auto max-w-[1240px] px-5 pt-10 md:px-8">
         <div className="grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <div className="aspect-16/10 overflow-hidden rounded-3xl">
-              <img
-                src={pkg.cover_image || "/images/hero.jpg"}
-                alt={`${pkg.name} in ${pkg.destination}`}
-                className="size-full object-cover"
-              />
-            </div>
+            <ImageSlider
+              images={galleryOf(pkg)}
+              alt={`${pkg.name} in ${pkg.destination}`}
+              interval={4000}
+            />
           </div>
           <div className="lg:col-span-4">
             <div className="label-mono text-primary">{pkg.code}</div>
