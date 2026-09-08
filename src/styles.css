@@ -49,6 +49,8 @@
   --color-warning: var(--warning);
   --color-footer: var(--footer);
   --color-footer-foreground: var(--footer-foreground);
+  /* Always-light ink for text sitting on top of photography */
+  --color-hero-ink: oklch(0.985 0.004 90);
 
   --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
 }
