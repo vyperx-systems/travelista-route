@@ -100,10 +100,10 @@ function AboutPage() {
 
         <div className="mt-10 flex flex-wrap gap-3">
           <Link
-            to="/packages"
+            to="/domestic"
             className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
           >
-            Browse packages
+            Browse tours
           </Link>
           <Link to="/contact" className="chip">
             Talk to a planner

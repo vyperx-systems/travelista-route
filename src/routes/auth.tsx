@@ -104,7 +104,7 @@ function AuthPage() {
       return;
     }
     window.localStorage.setItem("sa_auth_skipped", "1");
-    toast.success("Account created. If email confirmation is on, check your inbox.");
+    toast.success(`Welcome, ${parsed.data.fullName.split(" ")[0]}`);
     navigate({ to: "/", replace: true });
   };
 

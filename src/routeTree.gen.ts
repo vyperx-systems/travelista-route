@@ -20,7 +20,6 @@ import { Route as InternationalRouteImport } from './routes/international'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SavedRouteImport } from './routes/saved'
-import { Route as PackagesIndexRouteImport } from './routes/packages.index'
 import { Route as PackagesIdRouteImport } from './routes/packages.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -78,11 +77,6 @@ const SavedRoute = SavedRouteImport.update({
   path: '/saved',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PackagesIndexRoute = PackagesIndexRouteImport.update({
-  id: '/packages/',
-  path: '/packages/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PackagesIdRoute = PackagesIdRouteImport.update({
   id: '/packages/$id',
   path: '/packages/$id',
@@ -102,7 +96,6 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof ReviewsRoute
   '/saved': typeof SavedRoute
   '/packages/$id': typeof PackagesIdRoute
-  '/packages/': typeof PackagesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -117,7 +110,6 @@ export interface FileRoutesByTo {
   '/reviews': typeof ReviewsRoute
   '/saved': typeof SavedRoute
   '/packages/$id': typeof PackagesIdRoute
-  '/packages': typeof PackagesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -133,7 +125,6 @@ export interface FileRoutesById {
   '/reviews': typeof ReviewsRoute
   '/saved': typeof SavedRoute
   '/packages/$id': typeof PackagesIdRoute
-  '/packages/': typeof PackagesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,7 +141,6 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/saved'
     | '/packages/$id'
-    | '/packages/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -165,7 +155,6 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/saved'
     | '/packages/$id'
-    | '/packages'
   id:
     | '__root__'
     | '/'
@@ -180,7 +169,6 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/saved'
     | '/packages/$id'
-    | '/packages/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -196,7 +184,6 @@ export interface RootRouteChildren {
   ReviewsRoute: typeof ReviewsRoute
   SavedRoute: typeof SavedRoute
   PackagesIdRoute: typeof PackagesIdRoute
-  PackagesIndexRoute: typeof PackagesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -278,13 +265,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SavedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/packages/': {
-      id: '/packages/'
-      path: '/packages'
-      fullPath: '/packages/'
-      preLoaderRoute: typeof PackagesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/packages/$id': {
       id: '/packages/$id'
       path: '/packages/$id'
@@ -308,7 +288,6 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewsRoute: ReviewsRoute,
   SavedRoute: SavedRoute,
   PackagesIdRoute: PackagesIdRoute,
-  PackagesIndexRoute: PackagesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

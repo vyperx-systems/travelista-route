@@ -10,7 +10,7 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/domestic", label: "Domestic" },
   { to: "/international", label: "International" },
-  { to: "/packages", label: "Packages" },
+  
   { to: "/reviews", label: "Reviews" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },

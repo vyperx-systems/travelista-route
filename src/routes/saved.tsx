@@ -66,8 +66,8 @@ function SavedPage() {
         <div className="mt-8 rounded-3xl border border-border bg-card p-8">
           <p className="text-sm text-muted-foreground">
             Nothing saved yet. Tap the heart on any package to keep it here.{" "}
-            <Link to="/packages" className="text-primary underline">
-              Browse packages
+            <Link to="/domestic" className="text-primary underline">
+              Browse tours
             </Link>
             .
           </p>
