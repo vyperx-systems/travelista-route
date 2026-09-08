@@ -9,12 +9,12 @@ import type { Profile } from "@/lib/travel";
 export const Route = createFileRoute("/profile")({
   head: () => ({
     meta: [
-      { title: "My profile — Saffron Atlas" },
+      { title: "My profile — Tour & Travels" },
       {
         name: "description",
         content: "Update your name and mobile number used for tour bookings and trip updates.",
       },
-      { property: "og:title", content: "My profile — Saffron Atlas" },
+      { property: "og:title", content: "My profile — Tour & Travels" },
       { property: "og:description", content: "Keep your traveller details current." },
     ],
   }),

@@ -11,13 +11,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Saffron Atlas — Curated Tours & Travel Packages in INR" },
+      { title: "Tour & Travels — Curated Tours & Travel Packages in INR" },
       {
         name: "description",
         content:
           "Discover hand-built domestic and international tour packages with day-wise itineraries, transparent INR pricing, saved trips and instant booking.",
       },
-      { property: "og:title", content: "Saffron Atlas — Curated Tours & Travel Packages" },
+      { property: "og:title", content: "Tour & Travels — Curated Tours & Travel Packages" },
       {
         property: "og:description",
         content:

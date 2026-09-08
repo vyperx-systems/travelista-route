@@ -1417,15 +1417,15 @@ Production-ready deployment configuration
 Keep the architecture modular so additional functionality such as online payments, flight/hotel integrations, coupon codes, referral systems, travel insurance, agent accounts, and automated booking management can be added later without rewriting the entire application.
 in react+javascript (with tailwind css)
 
-This project was built with [Lovable](https://lovable.dev).
+This project was built with [VyperX](https://VyperX.dev).
 
-## Build with Lovable
+## Build with VyperX
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/e652695e-6985-4555-b8ca-5ff28d2ac1e3).
+Continue developing this project in the [VyperX editor](https://VyperX.dev/projects/e652695e-6985-4555-b8ca-5ff28d2ac1e3).
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- **Ship faster**: describe what you want to build and VyperX handles the code.
+- **Stay in sync**: every change made in VyperX is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into VyperX, ready for your next prompt.
 
 ## Development
 

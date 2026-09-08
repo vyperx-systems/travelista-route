@@ -7,13 +7,13 @@ import { useReveal } from "@/hooks/useReveal";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Saffron Atlas — Plan your trip on WhatsApp" },
+      { title: "Contact Tour & Travels — Plan your trip on WhatsApp" },
       {
         name: "description",
         content:
           "Talk to the team that plans our itineraries. Send an enquiry on WhatsApp and get trip ideas, dates and INR pricing within a day.",
       },
-      { property: "og:title", content: "Contact Saffron Atlas" },
+      { property: "og:title", content: "Contact Tour & Travels" },
       {
         property: "og:description",
         content: "Enquire on WhatsApp for custom itineraries, group trips and honeymoon plans.",
@@ -43,7 +43,7 @@ function ContactPage() {
   useReveal(1);
 
   const message = [
-    `Hello Saffron Atlas, I would like to enquire about a trip.`,
+    `Hello Tour & Travels, I would like to enquire about a trip.`,
     `Name: ${name || "—"}`,
     `Interest: ${interest}`,
     `Travellers: ${travellers || "—"}`,

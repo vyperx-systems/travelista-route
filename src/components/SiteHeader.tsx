@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import Logo from "../../public/logo.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -33,12 +34,11 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-5 md:px-8">
         <Link to="/" className="flex items-center gap-2.5">
-          <span className="grid size-8 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-            S
-          </span>
-          <span className="text-[17px] font-bold tracking-tight">
-            Saffron<span className="font-medium text-muted-foreground"> Atlas</span>
-          </span>
+          <img
+            src={Logo}
+            alt="Travelista"
+            className="h-9 w-auto"
+          />
         </Link>
 
         <nav className="hidden items-center gap-6 text-[13px] text-muted-foreground lg:flex">

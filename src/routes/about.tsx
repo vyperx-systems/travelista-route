@@ -5,13 +5,13 @@ import { useReveal } from "@/hooks/useReveal";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Saffron Atlas — Slow, hand-built travel since 2016" },
+      { title: "About Tour & Travels — Slow, hand-built travel since 2016" },
       {
         name: "description",
         content:
           "We plan story-first itineraries across India and the world, walked and tested by our own planners, with transparent per-person INR pricing.",
       },
-      { property: "og:title", content: "About Saffron Atlas" },
+      { property: "og:title", content: "About Tour & Travels" },
       {
         property: "og:description",
         content: "A small planning studio building slow, well-paced journeys since 2016.",
@@ -33,7 +33,7 @@ function AboutPage() {
           We build journeys we would take ourselves.
         </h1>
         <p className="mt-5 max-w-[58ch] text-[15px] text-muted-foreground">
-          Saffron Atlas started in 2016 with three planners, a shared notebook and a dislike of
+          Tour & Travels started in 2016 with three planners, a shared notebook and a dislike of
           rushed tours. Every package on this site is walked, timed and rewritten until it has room
           to breathe — real stays, sensible transfers and at least one slow morning.
         </p>

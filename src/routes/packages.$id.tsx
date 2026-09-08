@@ -22,13 +22,13 @@ import { galleryOf } from "@/lib/gallery";
 export const Route = createFileRoute("/packages/$id")({
   head: () => ({
     meta: [
-      { title: "Tour package details & itinerary — Saffron Atlas" },
+      { title: "Tour package details & itinerary — Tour & Travels" },
       {
         name: "description",
         content:
           "Day-wise itinerary, inclusions, exclusions, cancellation policy and INR pricing for this curated tour package.",
       },
-      { property: "og:title", content: "Tour package details — Saffron Atlas" },
+      { property: "og:title", content: "Tour package details — Tour & Travels" },
       {
         property: "og:description",
         content: "See the full plan, what's included and book this trip in minutes.",

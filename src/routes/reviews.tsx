@@ -12,13 +12,13 @@ import { useReveal } from "@/hooks/useReveal";
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Traveller reviews — Saffron Atlas tours" },
+      { title: "Traveller reviews — Tour & Travels tours" },
       {
         name: "description",
         content:
           "Read verified traveller reviews of our domestic and international tour packages, and share your own trip story.",
       },
-      { property: "og:title", content: "Traveller reviews — Saffron Atlas" },
+      { property: "og:title", content: "Traveller reviews — Tour & Travels" },
       {
         property: "og:description",
         content: "Honest reviews from travellers who booked our curated itineraries.",

@@ -9,13 +9,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const Route = createFileRoute("/bookings")({
   head: () => ({
     meta: [
-      { title: "My bookings — Saffron Atlas" },
+      { title: "My bookings — Tour & Travels" },
       {
         name: "description",
         content:
-          "Track your Saffron Atlas tour bookings: reference number, travel date, travellers and status.",
+          "Track your Tour & Travels tour bookings: reference number, travel date, travellers and status.",
       },
-      { property: "og:title", content: "My bookings — Saffron Atlas" },
+      { property: "og:title", content: "My bookings — Tour & Travels" },
       { property: "og:description", content: "Every booking and its live status in one view." },
     ],
   }),

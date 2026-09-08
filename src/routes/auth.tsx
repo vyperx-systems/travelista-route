@@ -10,16 +10,16 @@ import { TextField, SubmitButton } from "@/components/form";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in or create an account — Saffron Atlas" },
+      { title: "Sign in or create an account — Tour & Travels" },
       {
         name: "description",
         content:
-          "Sign in to save packages, book curated tours and track your booking status with Saffron Atlas.",
+          "Sign in to save packages, book curated tours and track your booking status with Tour & Travels.",
       },
-      { property: "og:title", content: "Sign in — Saffron Atlas" },
+      { property: "og:title", content: "Sign in — Tour & Travels" },
       {
         property: "og:description",
-        content: "Access saved trips, bookings and reviews on your Saffron Atlas account.",
+        content: "Access saved trips, bookings and reviews on your Tour & Travels account.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

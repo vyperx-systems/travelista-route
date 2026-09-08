@@ -10,13 +10,13 @@ import type { Booking, Package, Review } from "@/lib/travel";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin Portal — Saffron Atlas" },
+      { title: "Admin Portal — Tour & Travels" },
       {
         name: "description",
         content:
-          "Role-protected admin portal to manage tour packages, bookings, reviews and travellers for Saffron Atlas.",
+          "Role-protected admin portal to manage tour packages, bookings, reviews and travellers for Tour & Travels.",
       },
-      { property: "og:title", content: "Admin Portal — Saffron Atlas" },
+      { property: "og:title", content: "Admin Portal — Tour & Travels" },
       {
         property: "og:description",
         content: "Manage packages, booking statuses, review moderation and registered travellers.",
@@ -77,7 +77,7 @@ function AdminPage() {
         <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-3 px-5 py-4 md:px-8">
           <div>
             <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              Saffron Atlas
+              Tour & Travels
             </p>
             <h1 className="text-lg font-semibold">Admin portal</h1>
           </div>

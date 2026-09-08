@@ -4,7 +4,7 @@ import { PackageBrowser } from "@/components/PackageBrowser";
 export const Route = createFileRoute("/domestic")({
   head: () => ({
     meta: [
-      { title: "Domestic Tour Packages in India — Saffron Atlas" },
+      { title: "Domestic Tour Packages in India — Tour & Travels" },
       {
         name: "description",
         content:

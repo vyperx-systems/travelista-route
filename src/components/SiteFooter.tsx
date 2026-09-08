@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="mt-16 border-t border-border bg-footer text-footer-foreground/80">
       <div className="mx-auto flex max-w-[1240px] flex-col items-start justify-between gap-6 px-5 py-12 md:flex-row md:items-center md:px-8">
         <div>
-          <div className="font-display text-[22px] italic text-footer-foreground">Saffron Atlas</div>
+          <div className="font-display text-[22px] italic text-footer-foreground">Tour & Travels</div>
           <p className="mt-2 max-w-[42ch] text-[13px] text-footer-foreground/60">
             Slow journeys, told well. Hand-built itineraries across India and the world since 2016.
           </p>
