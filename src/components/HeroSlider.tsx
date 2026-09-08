@@ -105,27 +105,27 @@ export function HeroSlider({
 
         <div className="absolute inset-0 flex flex-col justify-end">
           <div className="mx-auto w-full max-w-[1240px] px-5 pb-12 md:px-8 md:pb-16">
-            <div className="max-w-[62ch] text-cream">
-              {eyebrow && <div className="label-mono text-cream/75">{eyebrow}</div>}
+            <div className="max-w-[62ch] text-hero-ink">
+              {eyebrow && <div className="label-mono text-hero-ink/75">{eyebrow}</div>}
               {headline && (
-                <h1 className="mt-3 text-[38px] leading-[1.02] text-cream sm:text-[56px]">
+                <h1 className="mt-3 text-[38px] leading-[1.02] text-hero-ink sm:text-[56px]">
                   {headline}
                 </h1>
               )}
 
               <div key={slides[index]?.id ?? index} className="mt-7 animate-in fade-in slide-in-from-bottom-3 duration-700">
-                <div className="label-mono flex items-center gap-1.5 text-cream/80">
+                <div className="label-mono flex items-center gap-1.5 text-hero-ink/80">
                   <MapPin className="size-3" /> {slides[index]?.destination}
                 </div>
-                <h2 className="mt-2 max-w-[24ch] text-[26px] leading-[1.1] text-cream sm:text-[34px]">
+                <h2 className="mt-2 max-w-[24ch] text-[26px] leading-[1.1] text-hero-ink sm:text-[34px]">
                   {slides[index]?.name}
                 </h2>
-                <p className="mt-2 max-w-[52ch] text-[14px] text-cream/80">
+                <p className="mt-2 max-w-[52ch] text-[14px] text-hero-ink/80">
                   {slides[index]?.summary}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-3">
                   {(slides[index]?.price_inr ?? 0) > 0 && (
-                    <span className="font-mono text-[12px] text-cream/85">
+                    <span className="font-mono text-[12px] text-hero-ink/85">
                       From {inr(slides[index]!.price_inr)} per person
                     </span>
                   )}
@@ -170,7 +170,7 @@ export function HeroSlider({
                   aria-label={`Go to slide ${i + 1}`}
                   onClick={() => setIndex(i)}
                   className={`h-1 rounded-full transition-all ${
-                    i === index ? "w-10 bg-cream" : "w-4 bg-cream/45"
+                    i === index ? "w-10 bg-hero-ink" : "w-4 bg-hero-ink/45"
                   }`}
                 />
               ))}
