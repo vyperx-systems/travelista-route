@@ -4,7 +4,10 @@ import { Moon, Sun } from "lucide-react";
 type Theme = "light" | "dark";
 const KEY = "sa_theme";
 
-const ThemeContext = createContext<{ theme: Theme; toggle: () => void }>({
+const ThemeContext = createContext<{
+  theme: Theme;
+  toggle: (origin?: { x: number; y: number }) => void;
+}>({
   theme: "light",
   toggle: () => {},
 });
