@@ -109,8 +109,8 @@ function Home() {
             <div className="label-mono text-primary">Featured departures</div>
             <h2 className="mt-2 text-[26px]">Signature itineraries</h2>
           </div>
-          <Link to="/packages" className="chip">
-            View all packages
+          <Link to="/domestic" className="chip">
+            Explore domestic
           </Link>
         </div>
 

@@ -80,8 +80,8 @@ function PackageDetail() {
         <p className="mt-2 text-sm text-muted-foreground">
           This package may have been removed by our team.
         </p>
-        <Link to="/packages" className="chip mt-6 inline-flex">
-          Browse all packages
+        <Link to="/domestic" className="chip mt-6 inline-flex">
+          Browse domestic tours
         </Link>
       </div>
     );

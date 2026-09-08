@@ -71,7 +71,7 @@ function BookingsPage() {
         <div className="mt-8 rounded-3xl border border-border bg-card p-8">
           <p className="text-sm text-muted-foreground">
             No bookings yet.{" "}
-            <Link to="/packages" className="text-primary underline">
+            <Link to="/domestic" className="text-primary underline">
               Find a trip
             </Link>
             .

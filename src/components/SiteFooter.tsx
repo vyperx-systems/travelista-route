@@ -13,7 +13,7 @@ export function SiteFooter() {
         <nav className="flex flex-wrap gap-x-7 gap-y-2 text-[13px] text-footer-foreground/70">
           <Link to="/domestic">Domestic</Link>
           <Link to="/international">International</Link>
-          <Link to="/packages">Packages</Link>
+          
           <Link to="/reviews">Reviews</Link>
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
