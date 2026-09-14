@@ -1,0 +1,298 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Tour & Travels design system — warm editorial travel.
+ * Cream paper ground, deep ink text, ember accent, lagoon secondary.
+ * Display: Fraunces (italic serif). UI: Space Grotesk. Data: JetBrains Mono.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+  --radius-3xl: calc(var(--radius) + 20px);
+
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sand: var(--sand);
+  --color-lagoon: var(--lagoon);
+  --color-lagoon-foreground: var(--lagoon-foreground);
+  --color-cream: var(--cream);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-footer: var(--footer);
+  --color-footer-foreground: var(--footer-foreground);
+  /* Always-light ink for text sitting on top of photography */
+  --color-hero-ink: oklch(0.985 0.004 90);
+
+  --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+:root {
+  --radius: 1.25rem;
+
+  --background: oklch(0.945 0.024 88);
+  --foreground: oklch(0.262 0.029 55);
+  --card: oklch(0.973 0.018 92);
+  --card-foreground: oklch(0.262 0.029 55);
+  --popover: oklch(0.973 0.018 92);
+  --popover-foreground: oklch(0.262 0.029 55);
+
+  --primary: oklch(0.615 0.185 38);
+  --primary-foreground: oklch(0.973 0.018 92);
+  --secondary: oklch(0.84 0.048 85);
+  --secondary-foreground: oklch(0.262 0.029 55);
+  --muted: oklch(0.915 0.026 88);
+  --muted-foreground: oklch(0.512 0.031 55);
+  --accent: oklch(0.84 0.048 85);
+  --accent-foreground: oklch(0.262 0.029 55);
+  --destructive: oklch(0.545 0.19 25);
+  --destructive-foreground: oklch(0.973 0.018 92);
+
+  --border: oklch(0.262 0.029 55 / 12%);
+  --input: oklch(0.262 0.029 55 / 16%);
+  --ring: oklch(0.615 0.185 38 / 45%);
+
+  --sand: oklch(0.84 0.048 85);
+  --lagoon: oklch(0.452 0.065 226);
+  --lagoon-foreground: oklch(0.973 0.018 92);
+  --cream: oklch(0.973 0.018 92);
+  --success: oklch(0.52 0.11 152);
+  --warning: oklch(0.72 0.13 78);
+  --footer: var(--foreground);
+  --footer-foreground: var(--cream);
+}
+
+.dark {
+  --background: oklch(0.168 0.016 52);
+  --foreground: oklch(0.93 0.022 84);
+  --card: oklch(0.222 0.021 50);
+  --card-foreground: oklch(0.93 0.022 84);
+  --popover: oklch(0.212 0.02 50);
+  --popover-foreground: oklch(0.93 0.022 84);
+  --primary: oklch(0.7 0.145 46);
+  --primary-foreground: oklch(0.16 0.014 52);
+  --secondary: oklch(0.268 0.026 50);
+  --secondary-foreground: oklch(0.91 0.022 84);
+  --muted: oklch(0.252 0.024 50);
+  --muted-foreground: oklch(0.735 0.03 76);
+  --accent: oklch(0.3 0.038 54);
+  --accent-foreground: oklch(0.93 0.022 84);
+  --destructive: oklch(0.62 0.18 26);
+  --destructive-foreground: oklch(0.94 0.014 82);
+  --border: oklch(0.82 0.04 76 / 16%);
+  --input: oklch(0.82 0.04 76 / 22%);
+  --ring: oklch(0.7 0.145 46 / 40%);
+  --sand: oklch(0.32 0.034 60);
+  --lagoon: oklch(0.68 0.085 196);
+  --lagoon-foreground: oklch(0.16 0.014 52);
+  --cream: oklch(0.252 0.024 50);
+  --success: oklch(0.66 0.1 153);
+  --warning: oklch(0.76 0.1 78);
+  --footer: oklch(0.132 0.014 50);
+  --footer-foreground: oklch(0.91 0.022 84);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Editorial chip — used for meta labels across cards, filters, detail pages */
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--cream);
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+@utility chip-on {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted-foreground);
+}
+
+/* Shared form control — one look for every form on the site */
+@utility field {
+  display: block;
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1px solid var(--input);
+  background-color: var(--background);
+  padding: 0.75rem 0.95rem;
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  outline: none;
+  transition:
+    border-color 0.25s var(--ease-soft),
+    box-shadow 0.25s var(--ease-soft),
+    background-color 0.25s var(--ease-soft);
+}
+
+.field::placeholder {
+  color: var(--muted-foreground);
+}
+
+.field:hover {
+  border-color: color-mix(in oklab, var(--primary) 45%, var(--input));
+}
+
+.field:focus {
+  border-color: var(--primary);
+  background-color: var(--card);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+textarea.field {
+  resize: vertical;
+}
+
+
+@utility panel {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 6px);
+}
+
+/* Scroll reveal — progressive enhancement, visible by default without JS */
+@utility reveal {
+  opacity: 1;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s var(--ease-soft),
+    transform 0.7s var(--ease-soft);
+  will-change: opacity, transform;
+}
+
+[data-reveal="shown"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Theme switch — colours ease instead of snapping */
+body,
+header,
+footer,
+.panel,
+[class*="bg-card"],
+[class*="bg-background"],
+[class*="bg-muted"],
+[class*="bg-footer"] {
+  transition:
+    background-color 0.45s var(--ease-soft),
+    border-color 0.45s var(--ease-soft),
+    color 0.45s var(--ease-soft);
+}
+
+/* Circular reveal for the light/dark switch (View Transitions capable browsers) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: theme-reveal 0.6s var(--ease-soft) both;
+}
+
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0% at var(--theme-x, 50%) var(--theme-y, 0%));
+  }
+  to {
+    clip-path: circle(150% at var(--theme-x, 50%) var(--theme-y, 0%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
