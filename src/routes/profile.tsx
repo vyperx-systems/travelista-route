@@ -47,7 +47,7 @@ function ProfilePage() {
 
   if (!loading && !user) {
     return (
-      <section className="mx-auto max-w-[1240px] px-5 py-20 text-center md:px-8">
+      <section className="mx-auto max-w-310 px-5 py-20 text-center md:px-8">
         <h1 className="text-[30px]">Sign in to manage your profile</h1>
         <Link to="/auth" className="chip chip-on mt-6 inline-flex">
           Sign in
@@ -73,57 +73,120 @@ function ProfilePage() {
   };
 
   return (
-    <section className="mx-auto max-w-[720px] px-5 py-12 md:px-8">
-      <div className="label-mono text-primary">Account</div>
-      <h1 className="mt-2 text-[34px]">My profile</h1>
+  <section className="mx-auto w-full max-w-180 px-4 py-10 sm:px-5 md:px-8 md:py-12">
+  <div className="label-mono text-primary">Account</div>
 
-      <form
-        className="mt-8 grid gap-4 rounded-3xl border border-border bg-card p-6"
-        onSubmit={(e) => {
-          e.preventDefault();
-          void save();
-        }}
-      >
-        <label className="block">
-          <span className="label-mono">Email</span>
-          <input className="field mt-1.5 opacity-70" value={data?.email ?? ""} readOnly />
-        </label>
-        <label className="block">
-          <span className="label-mono">Full name</span>
-          <input
-            className="field mt-1.5"
-            value={form.full_name}
-            onChange={(e) => setForm((f) => ({ ...f, full_name: e.target.value }))}
-          />
-        </label>
-        <label className="block">
-          <span className="label-mono">Mobile number</span>
-          <input
-            className="field mt-1.5"
-            value={form.mobile}
-            onChange={(e) => setForm((f) => ({ ...f, mobile: e.target.value }))}
-          />
-        </label>
-        <button
-          type="submit"
-          disabled={busy}
-          className="justify-self-start rounded-xl bg-primary px-6 py-3 text-sm font-medium text-primary-foreground disabled:opacity-60"
-        >
-          {busy ? "Saving…" : "Save changes"}
-        </button>
-      </form>
+  <h1 className="mt-2 text-[30px] sm:text-[34px]">
+    My profile
+  </h1>
 
-      <div className="mt-6 flex flex-wrap gap-2">
-        <Link to="/bookings" className="chip">
-          My bookings
-        </Link>
-        <Link to="/saved" className="chip">
-          Saved packages
-        </Link>
-        <Link to="/reviews" className="chip">
-          Write a review
-        </Link>
-      </div>
-    </section>
+  {/* Logged-in user information */}
+  <div className="mt-6 rounded-2xl border border-border bg-card p-5 sm:p-6">
+    <div className="label-mono text-primary">
+      Logged in as
+    </div>
+
+    <div className="mt-3 min-w-0">
+      <p className="mt-1 break-all text-sm text-foreground"> {user?.email || "No email available"} 
+      </p>
+    </div>
+  </div>
+
+  {/* Profile form */}
+  <form
+    className="mt-6 grid gap-4 rounded-3xl border border-border bg-card p-4 sm:mt-8 sm:p-6"
+    onSubmit={(e) => {
+      e.preventDefault();
+      void save();
+    }}
+  >
+    {/* Email */}
+    <label className="block min-w-0">
+      <span className="label-mono">
+        Email
+      </span>
+
+      <input
+        type="email"
+        className="field mt-1.5 w-full text-foreground opacity-70"
+        value={user?.email ?? ""}
+        readOnly
+      />
+    </label>
+
+    {/* Full name */}
+    <label className="block min-w-0">
+      <span className="label-mono">
+        Full name
+      </span>
+
+      <input
+        type="text"
+        className="field mt-1.5 w-full text-foreground"
+        value={form.full_name}
+        onChange={(e) =>
+          setForm((f) => ({
+            ...f,
+            full_name: e.target.value,
+          }))
+        }
+        placeholder="Enter your full name"
+      />
+    </label>
+
+    {/* Mobile number */}
+    <label className="block min-w-0">
+      <span className="label-mono">
+        Mobile number
+      </span>
+
+      <input
+        type="tel"
+        className="field mt-1.5 w-full text-foreground"
+        value={form.mobile}
+        onChange={(e) =>
+          setForm((f) => ({
+            ...f,
+            mobile: e.target.value,
+          }))
+        }
+        placeholder="Enter your mobile number"
+      />
+    </label>
+
+    {/* Save button */}
+    <button
+      type="submit"
+      disabled={busy}
+      className="w-full justify-self-start rounded-xl bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+    >
+      {busy ? "Saving…" : "Save changes"}
+    </button>
+  </form>
+
+  {/* Profile navigation */}
+  <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+    <Link
+      to="/bookings"
+      className="chip w-full justify-center sm:w-auto"
+    >
+      My bookings
+    </Link>
+
+    <Link
+      to="/saved"
+      className="chip w-full justify-center sm:w-auto"
+    >
+      Saved packages
+    </Link>
+
+    <Link
+      to="/reviews"
+      className="chip w-full justify-center sm:w-auto"
+    >
+      Write a review
+    </Link>
+  </div>
+</section>
   );
 }

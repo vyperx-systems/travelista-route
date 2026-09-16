@@ -12,7 +12,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import Logo from "../../public/images/web_logo.png?url";
 import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -95,7 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: {Logo}, type: "image/x-icon" },
+      { rel: "icon", href: "/images/web_logo.png", type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -127,10 +126,6 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-/**
- * First visit lands on the sign-in screen. "I'll do it later" on /auth stores a
- * flag so the gate never nags again in this browser.
- */
 function FirstVisitAuthGate() {
   const { loading, user } = useAuth();
   const navigate = useNavigate();

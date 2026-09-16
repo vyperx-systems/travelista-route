@@ -47,7 +47,7 @@ function BookingsPage() {
 
   if (!loading && !user) {
     return (
-      <section className="mx-auto max-w-[1240px] px-5 py-20 text-center md:px-8">
+      <section className="mx-auto max-w-310 px-5 py-20 text-center md:px-8">
         <h1 className="text-[30px]">Sign in to view your bookings</h1>
         <Link to="/auth" className="chip chip-on mt-6 inline-flex">
           Sign in
@@ -57,7 +57,7 @@ function BookingsPage() {
   }
 
   return (
-    <section className="mx-auto max-w-[1240px] px-5 py-12 md:px-8">
+    <section className="mx-auto max-w-310 px-5 py-12 md:px-8">
       <div className="label-mono text-primary">Trip desk</div>
       <h1 className="mt-2 text-[34px]">My bookings</h1>
 
@@ -92,7 +92,7 @@ function BookingsPage() {
                     statusTone[b.status] ?? "bg-muted"
                   }`}
                 >
-                  {titleCase(b.status)}
+                  {titleCase(b.status ?? "In Progress")}
                 </span>
               </div>
               <dl className="mt-4 grid gap-3 border-t border-border pt-4 text-[13px] sm:grid-cols-4">
@@ -110,7 +110,7 @@ function BookingsPage() {
                 </div>
                 <div>
                   <dt className="label-mono">Payment</dt>
-                  <dd className="mt-1">{titleCase(b.payment_status)}</dd>
+                  <dd className="mt-1">{titleCase(b.payment_status ?? "To be paid")}</dd>
                 </div>
               </dl>
               {b.special_requirements && (

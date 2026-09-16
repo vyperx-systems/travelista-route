@@ -74,7 +74,7 @@ function AdminPage() {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card">
-        <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-3 px-5 py-4 md:px-8">
+        <div className="mx-auto flex max-w-310 flex-wrap items-center justify-between gap-3 px-5 py-4 md:px-8">
           <div>
             <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
               Tour & Travels
@@ -88,7 +88,7 @@ function AdminPage() {
             </Link>
           </div>
         </div>
-        <div className="mx-auto flex max-w-[1240px] gap-2 overflow-x-auto px-5 pb-3 md:px-8">
+        <div className="mx-auto flex max-w-310 gap-2 overflow-x-auto px-5 pb-3 md:px-8">
           {TABS.map((t) => (
             <button
               key={t.key}
@@ -101,7 +101,7 @@ function AdminPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1240px] px-5 py-8 md:px-8">
+      <main className="mx-auto max-w-310 px-5 py-8 md:px-8">
         {tab === "overview" && <Overview />}
         {tab === "packages" && <PackagesPanel />}
         {tab === "bookings" && <BookingsPanel />}
@@ -114,7 +114,7 @@ function AdminPage() {
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-[720px] px-5 py-24 text-center md:px-8">
+    <div className="mx-auto max-w-180 px-5 py-24 text-center md:px-8">
       <div className="rounded-3xl border border-border bg-card p-10">{children}</div>
     </div>
   );

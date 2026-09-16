@@ -22,7 +22,7 @@ export function brokeredPreviewStorage() {
   const ancestor = (location.ancestorOrigins && location.ancestorOrigins[0]) || (document.referrer ? new URL(document.referrer).origin : '');
   const editorOrigins = ancestor && EDITOR.test(ancestor)
     ? [ancestor]
-    : (dev ? ['https://lovable.dev', 'http://localhost:3000'] : ['https://lovable.dev']);
+    : (dev ? ['http://mountview.in', 'http://localhost:3000', ] : ['http://mountview.in']);
   const RESULT = 'lovable-preview-auth:result';
   const TIMEOUT = 2000;
   const newId = () => Math.random().toString(36).slice(2) + Date.now().toString(36);

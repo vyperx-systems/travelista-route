@@ -1,19 +1,27 @@
--- Keep application-owned identity data in public while Supabase Auth owns credentials.
--- This migration repairs the legacy text-ID schema currently present in the connected project.
+-- Normalize legacy public identity tables to the UUID type used by auth.users.
+-- Existing legacy IDs must be UUID-shaped strings; the migration intentionally
+-- fails instead of silently corrupting an identity record.
 
--- A phone number is an identifier, not a number: it may contain a country code,
--- formatting, or leading zeroes.
+DROP POLICY IF EXISTS "own profile read" ON public.profiles;
+DROP POLICY IF EXISTS "own profile insert" ON public.profiles;
+DROP POLICY IF EXISTS "own profile update" ON public.profiles;
+DROP POLICY IF EXISTS "roles read" ON public.user_roles;
+
+-- A phone number is an identifier, not a number: it may contain a country
+-- code, formatting, or leading zeroes.
 ALTER TABLE public.profiles
   ALTER COLUMN mobile TYPE text USING mobile::text,
-  ALTER COLUMN mobile SET DEFAULT '';
+  ALTER COLUMN mobile SET DEFAULT '',
+  ALTER COLUMN id TYPE uuid USING id::uuid;
 
--- The existing project stores role records with text IDs. Ensure inserts made by
--- the trigger and database administrators receive an ID automatically.
+-- Keep both the role record ID and its owner ID as UUIDs. Dropping the old
+-- default makes the migration safe when a legacy deployment used text IDs.
 ALTER TABLE public.user_roles
-  ALTER COLUMN id SET DEFAULT gen_random_uuid()::text;
+  ALTER COLUMN id DROP DEFAULT,
+  ALTER COLUMN id TYPE uuid USING id::uuid,
+  ALTER COLUMN id SET DEFAULT gen_random_uuid(),
+  ALTER COLUMN user_id TYPE uuid USING user_id::uuid;
 
--- Keep the RLS comparisons valid whether a legacy public ID column is text or
--- a fresh deployment uses UUID. auth.uid() is always a UUID.
 CREATE OR REPLACE FUNCTION public.has_role(_user_id uuid, _role public.app_role)
 RETURNS boolean
 LANGUAGE sql
@@ -24,35 +32,30 @@ AS $$
   SELECT EXISTS (
     SELECT 1
     FROM public.user_roles
-    WHERE user_id::text = _user_id::text
+    WHERE user_id = _user_id
       AND role = _role
   );
 $$;
 
-DROP POLICY IF EXISTS "own profile read" ON public.profiles;
-DROP POLICY IF EXISTS "own profile insert" ON public.profiles;
-DROP POLICY IF EXISTS "own profile update" ON public.profiles;
-DROP POLICY IF EXISTS "roles read" ON public.user_roles;
-
 CREATE POLICY "own profile read" ON public.profiles
   FOR SELECT TO authenticated
-  USING (id::text = auth.uid()::text OR public.has_role(auth.uid(), 'admin'));
+  USING (id = auth.uid() OR public.has_role(auth.uid(), 'admin'));
 
 CREATE POLICY "own profile insert" ON public.profiles
   FOR INSERT TO authenticated
-  WITH CHECK (id::text = auth.uid()::text);
+  WITH CHECK (id = auth.uid());
 
 CREATE POLICY "own profile update" ON public.profiles
   FOR UPDATE TO authenticated
-  USING (id::text = auth.uid()::text OR public.has_role(auth.uid(), 'admin'))
-  WITH CHECK (id::text = auth.uid()::text OR public.has_role(auth.uid(), 'admin'));
+  USING (id = auth.uid() OR public.has_role(auth.uid(), 'admin'))
+  WITH CHECK (id = auth.uid() OR public.has_role(auth.uid(), 'admin'));
 
 CREATE POLICY "roles read" ON public.user_roles
   FOR SELECT TO authenticated
-  USING (user_id::text = auth.uid()::text OR public.has_role(auth.uid(), 'admin'));
+  USING (user_id = auth.uid() OR public.has_role(auth.uid(), 'admin'));
 
--- This function runs inside the same transaction as the Auth user insertion.
--- Any failure rejects the signup, preventing orphaned auth accounts.
+-- This trigger runs inside the Auth user creation transaction. A failure
+-- rejects signup so there cannot be an orphaned Auth account.
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger
 LANGUAGE plpgsql
@@ -62,17 +65,15 @@ AS $$
 BEGIN
   INSERT INTO public.profiles (id, full_name, email, mobile)
   VALUES (
-    NEW.id::text,
+    NEW.id,
     COALESCE(NEW.raw_user_meta_data ->> 'full_name', ''),
     COALESCE(NEW.email, ''),
     COALESCE(NEW.raw_user_meta_data ->> 'mobile', '')
   )
   ON CONFLICT (id) DO NOTHING;
 
-  -- Every account starts as a standard user. Only a database administrator or
-  -- service-role server action may subsequently grant the admin role.
   INSERT INTO public.user_roles (user_id, role)
-  VALUES (NEW.id::text, 'user')
+  VALUES (NEW.id, 'user')
   ON CONFLICT (user_id, role) DO NOTHING;
 
   RETURN NEW;
@@ -86,21 +87,24 @@ CREATE TRIGGER on_auth_user_created
   EXECUTE FUNCTION public.handle_new_user();
 
 -- Repair accounts created while the trigger was missing or failing.
-INSERT INTO public.profiles (id, full_name, email, mobile)
+INSERT INTO public.profiles (id, full_name, email, mobile, is_active, created_at, updated_at)
 SELECT
-  u.id::text,
+  u.id,
   COALESCE(u.raw_user_meta_data ->> 'full_name', ''),
   COALESCE(u.email, ''),
-  COALESCE(u.raw_user_meta_data ->> 'mobile', '')
+  COALESCE(u.raw_user_meta_data ->> 'mobile', ''),
+  TRUE,
+  NOW(),
+  NOW()
 FROM auth.users AS u
-LEFT JOIN public.profiles AS p ON p.id::text = u.id::text
+LEFT JOIN public.profiles AS p ON p.id = u.id
 WHERE p.id IS NULL;
 
 INSERT INTO public.user_roles (user_id, role)
-SELECT u.id::text, 'user'
+SELECT u.id, 'user'
 FROM auth.users AS u
 LEFT JOIN public.user_roles AS r
-  ON r.user_id::text = u.id::text
+  ON r.user_id = u.id
  AND r.role = 'user'
 WHERE r.user_id IS NULL;
 

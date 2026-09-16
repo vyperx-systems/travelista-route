@@ -35,7 +35,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-310 items-center justify-between gap-4 px-5 md:px-8">
         <Link to="/" className="flex items-center gap-2.5">
           <img
-            src={Logo}
+            src="/images/web_logo.png"
             alt="Travelista"
             className="h-15 w-auto"
           />

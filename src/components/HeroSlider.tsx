@@ -89,22 +89,22 @@ export function HeroSlider({
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative h-[78vh] min-h-[520px] w-full">
+      <div className="relative h-[78vh] min-h-130 w-full">
         {slides.map((s, i) => (
           <img
             key={`${s.id}-${i}`}
             src={s.cover_image}
             alt={`${s.name} — ${s.destination}`}
             loading={i === 0 ? "eager" : "lazy"}
-            className={`absolute inset-0 size-full object-cover transition-all duration-[1200ms] ease-soft ${
+            className={`absolute inset-0 size-full object-cover transition-all duration-1200 ease-soft ${
               i === index ? "scale-100 opacity-100" : "scale-105 opacity-0"
             }`}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/25" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/35 to-black/25" />
 
         <div className="absolute inset-0 flex flex-col justify-end">
-          <div className="mx-auto w-full max-w-[1240px] px-5 pb-12 md:px-8 md:pb-16">
+          <div className="mx-auto w-full max-w-310 px-5 pb-12 md:px-8 md:pb-16">
             <div className="max-w-[62ch] text-hero-ink">
               {eyebrow && <div className="label-mono text-hero-ink/75">{eyebrow}</div>}
               {headline && (
@@ -146,24 +146,22 @@ export function HeroSlider({
           </div>
         </div>
 
-        {slides.length > 1 && (
+        {/* {slides.length > 1 && (
           <>
             <button
               aria-label="Previous slide"
               onClick={() => go(-1)}
-              className="absolute left-3 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-background/80 text-foreground backdrop-blur transition-opacity hover:opacity-80 md:left-6"
-            >
+              className="absolute left-3 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-background/80 text-foreground backdrop-blur transition-opacity hover:opacity-80 md:left-6">
               <ChevronLeft className="size-4" />
             </button>
             <button
               aria-label="Next slide"
               onClick={() => go(1)}
-              className="absolute right-3 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-background/80 text-foreground backdrop-blur transition-opacity hover:opacity-80 md:right-6"
-            >
+              className="absolute right-3 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-background/80 text-foreground backdrop-blur transition-opacity hover:opacity-80 md:right-6">
               <ChevronRight className="size-4" />
             </button>
 
-            <div className="absolute inset-x-0 top-5 mx-auto flex max-w-[1240px] justify-center gap-1.5 px-5">
+            <div className="absolute inset-x-0 top-5 mx-auto flex max-w-310 justify-center gap-1.5 px-5">
               {slides.map((s, i) => (
                 <button
                   key={`dot-${s.id}-${i}`}
@@ -176,7 +174,7 @@ export function HeroSlider({
               ))}
             </div>
           </>
-        )}
+        )} */}
       </div>
     </section>
   );

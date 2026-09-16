@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { signupSchema } from "@/lib/travel";
 import { useAuth } from "@/hooks/useAuth";
 import { TextField, SubmitButton } from "@/components/form";
+import { Analytics } from "@vercel/analytics/react"
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -104,20 +105,21 @@ function AuthPage() {
       return;
     }
     window.localStorage.setItem("sa_auth_skipped", "1");
-    toast.success(`Welcome, ${parsed.data.fullName.split(" ")[0]}`);
+    toast.success(`Welcome, ${parsed.data.fullName.split(" ")[0]}. Please check your email to verify your account.`);
     navigate({ to: "/", replace: true });
   };
 
   return (
     <section className="relative overflow-hidden">
-      <div className="pointer-events-none absolute -left-40 -top-40 size-[520px] rounded-full bg-primary/15 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-52 -right-32 size-[460px] rounded-full bg-lagoon/15 blur-3xl" />
+    < Analytics/>
+      <div className="pointer-events-none absolute -left-40 -top-40 size-130 rounded-full bg-primary/15 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-52 -right-32 size-115 rounded-full bg-lagoon/15 blur-3xl" />
 
-      <div className="relative mx-auto grid max-w-[1240px] items-center gap-10 px-5 py-14 md:px-8 lg:grid-cols-[1fr_480px] lg:gap-16">
+      <div className="relative mx-auto grid max-w-310 items-center gap-10 px-5 py-14 md:px-8 lg:grid-cols-[1fr_480px] lg:gap-16">
         <div>
           <div className="label-mono text-primary">Traveller account</div>
           <h1 className="mt-3 text-[40px] leading-[1.02] sm:text-[52px]">
-            {mode === "signin" ? "Welcome back." : "Start planning."}
+            {mode === "signin" ? "Welcome back" : "Start planning"}
           </h1>
           <p className="mt-4 max-w-[46ch] text-[15px] text-muted-foreground">
             One account for saved packages, bookings with a unique reference, and reviews once you
@@ -145,12 +147,12 @@ function AuthPage() {
               alt="Snow-lined valley in Kashmir"
               width={1600}
               height={1200}
-              className="aspect-16/9 size-full object-cover"
+              className="aspect-video size-full object-cover"
             />
           </div>
         </div>
 
-        <div className="rounded-3xl border border-border bg-card/90 p-6 shadow-[0_24px_60px_-30px_oklch(0.262_0.029_55_/_35%)] backdrop-blur md:p-8">
+        <div className="rounded-3xl border border-border bg-card/90 p-6 shadow-[0_24px_60px_-30px_oklch(0.262_0.029_55/35%)] backdrop-blur md:p-8">
           <div className="relative grid grid-cols-2 gap-1 rounded-full border border-border bg-background p-1">
             <span
               aria-hidden

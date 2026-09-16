@@ -59,13 +59,12 @@ function Home() {
 
   return (
     <>
-      {/* HERO — full-bleed self-sliding destination showcase */}
       <HeroSlider
         packages={heroPackages}
         eyebrow="Curated journeys · est. 2016"
         headline="Explore the world. Create memories."
       >
-        <div className="grid gap-3 sm:max-w-[560px]">
+        <div className="grid gap-3 sm:max-w-140">
           <div className="flex items-center gap-2">
             {(["domestic", "international"] as const).map((c) => (
               <button
@@ -103,7 +102,7 @@ function Home() {
 
 
       {/* FEATURED */}
-      <section className="mx-auto max-w-[1240px] px-5 py-8 md:px-8 md:py-12">
+      <section className="mx-auto max-w-310 px-5 py-8 md:px-8 md:py-12">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <div className="label-mono text-primary">Featured departures</div>
@@ -117,7 +116,7 @@ function Home() {
         {isLoading ? (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[0, 1, 2].map((i) => (
-              <Skeleton key={i} className="h-[420px] rounded-3xl" />
+              <Skeleton key={i} className="h-105 rounded-3xl" />
             ))}
           </div>
         ) : (
@@ -131,7 +130,7 @@ function Home() {
 
       {/* WHY */}
       <section className="border-y border-border bg-card">
-        <div className="mx-auto grid max-w-[1240px] gap-6 px-5 py-14 md:grid-cols-3 md:px-8">
+        <div className="mx-auto grid max-w-310 gap-6 px-5 py-14 md:grid-cols-3 md:px-8">
           {[
             {
               icon: MapPinned,
@@ -159,7 +158,7 @@ function Home() {
       </section>
 
       {/* REVIEWS */}
-      <section className="mx-auto max-w-[1240px] px-5 py-14 md:px-8">
+      <section className="mx-auto max-w-310 px-5 py-14 md:px-8">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <div className="label-mono text-primary">Traveller stories</div>
