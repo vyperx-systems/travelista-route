@@ -20,7 +20,7 @@ export const Route = createFileRoute("/auth")({
       { property: "og:title", content: "Sign in — Tour & Travels" },
       {
         property: "og:description",
-        content: "Access saved trips, bookings and reviews on your Tour & Travels account.",
+        content: "Access saved trips, bookings and account details on your Tour & Travels account.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -33,7 +33,6 @@ const PERKS = [
   "Save packages and compare them later",
   "Book with a unique booking reference",
   "Track booking and payment status",
-  "Review trips once you are back home",
 ];
 
 function AuthPage() {
@@ -122,8 +121,8 @@ function AuthPage() {
             {mode === "signin" ? "Welcome back" : "Start planning"}
           </h1>
           <p className="mt-4 max-w-[46ch] text-[15px] text-muted-foreground">
-            One account for saved packages, bookings with a unique reference, and reviews once you
-            are back home. You can always browse first and sign in later.
+            One account for saved packages and bookings with a unique reference. You can always
+            browse first and sign in later.
           </p>
 
           <ul className="mt-7 grid gap-2.5">

@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { inr, formatDate, titleCase } from "@/lib/format";
-import type { Booking, Package, Review } from "@/lib/travel";
+import type { Booking, Package } from "@/lib/travel";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -14,12 +14,12 @@ export const Route = createFileRoute("/admin")({
       {
         name: "description",
         content:
-          "Role-protected admin portal to manage tour packages, bookings, reviews and travellers for Tour & Travels.",
+          "Role-protected admin portal to manage tour packages, bookings and travellers for Tour & Travels.",
       },
       { property: "og:title", content: "Admin Portal — Tour & Travels" },
       {
         property: "og:description",
-        content: "Manage packages, booking statuses, review moderation and registered travellers.",
+        content: "Manage packages, booking statuses and registered travellers.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -27,13 +27,12 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type Tab = "overview" | "packages" | "bookings" | "reviews" | "users";
+type Tab = "overview" | "packages" | "bookings" | "users";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "overview", label: "Overview" },
   { key: "packages", label: "Packages" },
   { key: "bookings", label: "Bookings" },
-  { key: "reviews", label: "Reviews" },
   { key: "users", label: "Travellers" },
 ];
 
@@ -105,7 +104,6 @@ function AdminPage() {
         {tab === "overview" && <Overview />}
         {tab === "packages" && <PackagesPanel />}
         {tab === "bookings" && <BookingsPanel />}
-        {tab === "reviews" && <ReviewsPanel />}
         {tab === "users" && <UsersPanel />}
       </main>
     </div>
@@ -133,17 +131,15 @@ function Overview() {
   const { data } = useQuery({
     queryKey: ["admin", "overview"],
     queryFn: async () => {
-      const [pkgs, bookings, reviews, profiles] = await Promise.all([
+      const [pkgs, bookings, profiles] = await Promise.all([
         supabase.from("packages").select("id", { count: "exact", head: true }).is("deleted_at", null),
         supabase.from("bookings").select("total_amount_inr, status"),
-        supabase.from("reviews").select("id", { count: "exact", head: true }).eq("status", "pending"),
         supabase.from("profiles").select("id", { count: "exact", head: true }),
       ]);
       const rows = (bookings.data ?? []) as { total_amount_inr: number; status: string }[];
       return {
         packages: pkgs.count ?? 0,
         bookings: rows.length,
-        pendingReviews: reviews.count ?? 0,
         travellers: profiles.count ?? 0,
         revenue: rows
           .filter((b) => b.status === "confirmed" || b.status === "completed")
@@ -157,7 +153,6 @@ function Overview() {
       <Card label="Active packages" value={String(data?.packages ?? "—")} />
       <Card label="Total bookings" value={String(data?.bookings ?? "—")} />
       <Card label="Confirmed revenue" value={data ? inr(data.revenue) : "—"} />
-      <Card label="Reviews awaiting moderation" value={String(data?.pendingReviews ?? "—")} />
       <Card label="Registered travellers" value={String(data?.travellers ?? "—")} />
     </div>
   );
@@ -504,66 +499,6 @@ function BookingsPanel() {
         </div>
       ))}
       {bookings.length === 0 && <p className="text-sm text-muted-foreground">No bookings yet.</p>}
-    </div>
-  );
-}
-
-function ReviewsPanel() {
-  const qc = useQueryClient();
-  const { data: reviews = [] } = useQuery({
-    queryKey: ["admin", "reviews"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("reviews")
-        .select("*")
-        .order("created_at", { ascending: false });
-      if (error) throw error;
-      return (data ?? []) as Review[];
-    },
-  });
-
-  const moderate = useMutation({
-    mutationFn: async ({ id, status }: { id: string; status: Review["status"] }) => {
-      const { error } = await supabase.from("reviews").update({ status }).eq("id", id);
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      toast.success("Review moderated");
-      void qc.invalidateQueries({ queryKey: ["admin"] });
-      void qc.invalidateQueries({ queryKey: ["reviews"] });
-    },
-    onError: (e: Error) => toast.error(e.message),
-  });
-
-  return (
-    <div className="grid gap-3">
-      {reviews.map((r) => (
-        <div key={r.id} className="rounded-2xl border border-border bg-card p-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-sm font-medium">
-              {r.author_name} · {r.rating}/5{" "}
-              <span className="text-muted-foreground">· {r.package_name}</span>
-            </p>
-            <div className="flex gap-2">
-              <span className="chip">{titleCase(r.status)}</span>
-              <button
-                className="chip"
-                onClick={() => moderate.mutate({ id: r.id, status: "approved" })}
-              >
-                Approve
-              </button>
-              <button
-                className="chip"
-                onClick={() => moderate.mutate({ id: r.id, status: "rejected" })}
-              >
-                Reject
-              </button>
-            </div>
-          </div>
-          <p className="mt-2 text-sm text-muted-foreground">{r.body}</p>
-        </div>
-      ))}
-      {reviews.length === 0 && <p className="text-sm text-muted-foreground">No reviews yet.</p>}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Search, Star, ShieldCheck, MapPinned, Headphones } from "lucide-react";
-import { fetchApprovedReviews, fetchPackages } from "@/lib/travel";
+import { Search, ShieldCheck, MapPinned, Headphones } from "lucide-react";
+import { fetchPackages } from "@/lib/travel";
 import { PackageCard } from "@/components/PackageCard";
 import { HeroSlider } from "@/components/HeroSlider";
 import { useReveal } from "@/hooks/useReveal";
@@ -41,11 +41,6 @@ function Home() {
     queryKey: ["packages", "hero", category],
     queryFn: () => fetchPackages({ category }),
   });
-  const { data: reviews } = useQuery({
-    queryKey: ["reviews", "home"],
-    queryFn: () => fetchApprovedReviews(),
-  });
-
   useReveal(featured?.length);
 
   const explore = () => {
@@ -157,51 +152,6 @@ function Home() {
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <section className="mx-auto max-w-310 px-5 py-14 md:px-8">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <div className="label-mono text-primary">Traveller stories</div>
-            <h2 className="mt-2 text-[26px]">What our travellers say</h2>
-          </div>
-          <Link to="/reviews" className="chip">
-            All reviews
-          </Link>
-        </div>
-
-        {(reviews ?? []).length === 0 ? (
-          <div className="rounded-3xl border border-border bg-card p-8">
-            <p className="text-sm text-muted-foreground">
-              Approved traveller reviews will appear here. Completed a trip with us?{" "}
-              <Link to="/reviews" className="text-primary underline">
-                Share your experience
-              </Link>
-              .
-            </p>
-          </div>
-        ) : (
-          <div className="grid gap-5 md:grid-cols-3">
-            {(reviews ?? []).slice(0, 3).map((r, i) => (
-              <blockquote
-                key={r.id}
-                data-reveal
-                style={{ transitionDelay: `${i * 80}ms` }}
-                className="rounded-3xl border border-border bg-card p-5"
-              >
-                <div className="flex gap-0.5 text-primary">
-                  {Array.from({ length: r.rating }).map((_, s) => (
-                    <Star key={s} className="size-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="mt-3 text-[14px] text-muted-foreground">{r.body}</p>
-                <footer className="mt-4 font-mono text-[11px] text-muted-foreground">
-                  {r.author_name || "Traveller"} · {r.package_name}
-                </footer>
-              </blockquote>
-            ))}
-          </div>
-        )}
-      </section>
     </>
   );
 }

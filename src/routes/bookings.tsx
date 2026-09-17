@@ -90,8 +90,7 @@ function BookingsPage() {
                 <span
                   className={`rounded-full px-3 py-1 text-[11px] font-medium ${
                     statusTone[b.status] ?? "bg-muted"
-                  }`}
-                >
+                  }`}>
                   {titleCase(b.status ?? "In Progress")}
                 </span>
               </div>

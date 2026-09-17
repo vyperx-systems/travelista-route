@@ -27,7 +27,7 @@ function AboutPage() {
   useReveal(1);
   return (
     <>
-      <section className="mx-auto max-w-[1240px] px-5 pt-14 md:px-8">
+      <section className="mx-auto max-w-310 px-5 pt-14 md:px-8">
         <div className="label-mono text-primary">About us</div>
         <h1 className="mt-3 max-w-[26ch] text-[40px] leading-[1.03]">
           We build journeys we would take ourselves.
@@ -39,20 +39,19 @@ function AboutPage() {
         </p>
       </section>
 
-      <section className="mx-auto max-w-[1240px] px-5 py-10 md:px-8">
+      <section className="mx-auto max-w-310 px-5 py-10 md:px-8">
         <div className="overflow-hidden rounded-3xl" data-reveal>
           <img
             src="/images/hero.jpg"
             alt="Sunrise over Himalayan ridges"
             width={1920}
             height={1080}
-            className="aspect-21/9 size-full object-cover"
-          />
+            className="aspect-21/9 size-full object-cover"/>
         </div>
       </section>
 
       <section className="border-y border-border bg-card">
-        <div className="mx-auto grid max-w-[1240px] gap-6 px-5 py-14 md:grid-cols-3 md:px-8">
+        <div className="mx-auto grid max-w-310 gap-6 px-5 py-14 md:grid-cols-3 md:px-8">
           {[
             {
               icon: RouteIcon,
@@ -79,7 +78,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1240px] px-5 py-14 md:px-8">
+      <section className="mx-auto max-w-310 px-5 py-14 md:px-8">
         <div className="grid gap-4 sm:grid-cols-3">
           {[
             { k: "9 years", v: "planning trips" },
@@ -90,8 +89,7 @@ function AboutPage() {
               key={s.k}
               data-reveal
               style={{ transitionDelay: `${i * 70}ms` }}
-              className="rounded-3xl border border-border bg-card p-6"
-            >
+              className="rounded-3xl border border-border bg-card p-6">
               <div className="text-[30px] font-bold">{s.k}</div>
               <div className="label-mono mt-1">{s.v}</div>
             </div>
@@ -101,8 +99,7 @@ function AboutPage() {
         <div className="mt-10 flex flex-wrap gap-3">
           <Link
             to="/domestic"
-            className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
-          >
+            className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground">
             Browse tours
           </Link>
           <Link to="/contact" className="chip">

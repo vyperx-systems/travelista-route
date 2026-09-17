@@ -18,7 +18,6 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DomesticRouteImport } from './routes/domestic'
 import { Route as InternationalRouteImport } from './routes/international'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as PackagesIdRouteImport } from './routes/packages.$id'
 
@@ -67,11 +66,6 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ReviewsRoute = ReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
@@ -93,7 +87,6 @@ export interface FileRoutesByFullPath {
   '/domestic': typeof DomesticRoute
   '/international': typeof InternationalRoute
   '/profile': typeof ProfileRoute
-  '/reviews': typeof ReviewsRoute
   '/saved': typeof SavedRoute
   '/packages/$id': typeof PackagesIdRoute
 }
@@ -107,7 +100,6 @@ export interface FileRoutesByTo {
   '/domestic': typeof DomesticRoute
   '/international': typeof InternationalRoute
   '/profile': typeof ProfileRoute
-  '/reviews': typeof ReviewsRoute
   '/saved': typeof SavedRoute
   '/packages/$id': typeof PackagesIdRoute
 }
@@ -122,7 +114,6 @@ export interface FileRoutesById {
   '/domestic': typeof DomesticRoute
   '/international': typeof InternationalRoute
   '/profile': typeof ProfileRoute
-  '/reviews': typeof ReviewsRoute
   '/saved': typeof SavedRoute
   '/packages/$id': typeof PackagesIdRoute
 }
@@ -138,7 +129,6 @@ export interface FileRouteTypes {
     | '/domestic'
     | '/international'
     | '/profile'
-    | '/reviews'
     | '/saved'
     | '/packages/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -152,7 +142,6 @@ export interface FileRouteTypes {
     | '/domestic'
     | '/international'
     | '/profile'
-    | '/reviews'
     | '/saved'
     | '/packages/$id'
   id:
@@ -166,7 +155,6 @@ export interface FileRouteTypes {
     | '/domestic'
     | '/international'
     | '/profile'
-    | '/reviews'
     | '/saved'
     | '/packages/$id'
   fileRoutesById: FileRoutesById
@@ -181,7 +169,6 @@ export interface RootRouteChildren {
   DomesticRoute: typeof DomesticRoute
   InternationalRoute: typeof InternationalRoute
   ProfileRoute: typeof ProfileRoute
-  ReviewsRoute: typeof ReviewsRoute
   SavedRoute: typeof SavedRoute
   PackagesIdRoute: typeof PackagesIdRoute
 }
@@ -251,13 +238,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reviews': {
-      id: '/reviews'
-      path: '/reviews'
-      fullPath: '/reviews'
-      preLoaderRoute: typeof ReviewsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/saved': {
       id: '/saved'
       path: '/saved'
@@ -285,7 +265,6 @@ const rootRouteChildren: RootRouteChildren = {
   DomesticRoute: DomesticRoute,
   InternationalRoute: InternationalRoute,
   ProfileRoute: ProfileRoute,
-  ReviewsRoute: ReviewsRoute,
   SavedRoute: SavedRoute,
   PackagesIdRoute: PackagesIdRoute,
 }

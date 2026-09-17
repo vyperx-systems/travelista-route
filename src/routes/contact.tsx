@@ -55,7 +55,7 @@ function ContactPage() {
 
   return (
     <>
-      <section className="mx-auto max-w-[1240px] px-5 pt-14 md:px-8">
+      <section className="mx-auto max-w-310 px-5 pt-14 md:px-8">
         <div className="label-mono text-primary">Contact</div>
         <h1 className="mt-3 max-w-[24ch] text-[40px] leading-[1.03]">
           Tell us where you want to go.
@@ -67,7 +67,7 @@ function ContactPage() {
         </p>
       </section>
 
-      <section className="mx-auto grid max-w-[1240px] gap-6 px-5 py-10 md:px-8 lg:grid-cols-12">
+      <section className="mx-auto grid max-w-310 gap-6 px-5 py-10 md:px-8 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <div className="rounded-3xl border border-border bg-card p-6 md:p-8" data-reveal>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -120,7 +120,7 @@ function ContactPage() {
               <label className="block sm:col-span-2">
                 <span className="label-mono">Anything else</span>
                 <textarea
-                  className="field mt-1.5 min-h-[110px]"
+                  className="field mt-1.5 min-h-27.5"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Flights from Kolkata, prefer boutique stays, one rest day…"
@@ -145,9 +145,9 @@ function ContactPage() {
         <div className="lg:col-span-5">
           <div className="grid gap-4">
             {[
-              { icon: Phone, label: "Phone", value: "+91 90000 00000" },
-              { icon: Mail, label: "Email", value: "hello@saffronatlas.in" },
-              { icon: MapPin, label: "Studio", value: "2nd Floor, Park Street, Kolkata 700016" },
+              { icon: Phone, label: "Phone", value: "+91 93301 48654" },
+              { icon: Mail, label: "Email", value: "mount.view@gmail.com" },
+              { icon: MapPin, label: "Studio", value: "Somewhere in Kolkata, Kolkata 700016" },
               { icon: Clock, label: "Hours", value: "Mon–Sat, 10:00–19:00 IST" },
             ].map((item, i) => (
               <div

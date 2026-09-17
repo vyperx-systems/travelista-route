@@ -180,12 +180,6 @@ function ProfilePage() {
       Saved packages
     </Link>
 
-    <Link
-      to="/reviews"
-      className="chip w-full justify-center sm:w-auto"
-    >
-      Write a review
-    </Link>
   </div>
 </section>
   );

@@ -1,14 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-  useRouterState,
-  useNavigate,
-  HeadContent,
-  Scripts,
-} from "@tanstack/react-router";
+import { Outlet, Link, createRootRouteWithContext, useRouter, useRouterState, useNavigate, HeadContent, Scripts,} from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -61,14 +52,12 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
-          >
+            className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
             Try again
           </button>
           <a
             href="/"
-            className="rounded-full border border-border px-5 py-2.5 text-sm font-medium"
-          >
+            className="rounded-full border border-border px-5 py-2.5 text-sm font-medium">
             Go home
           </a>
         </div>
@@ -164,7 +153,6 @@ function RootComponent() {
         <div className="flex min-h-screen flex-col">
           {!isAdmin && <SiteHeader />}
           <main className="flex-1">
-            {/* Required: nested routes render here. */}
             <Outlet />
           </main>
           {!isAdmin && <SiteFooter />}

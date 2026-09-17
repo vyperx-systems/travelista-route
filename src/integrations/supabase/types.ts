@@ -180,7 +180,6 @@ export type Database = {
           nights: number
           price_inr: number
           rating: number
-          reviews_count: number
           status: Database["public"]["Enums"]["pkg_status"]
           summary: string
           terms: string
@@ -209,7 +208,6 @@ export type Database = {
           nights?: number
           price_inr?: number
           rating?: number
-          reviews_count?: number
           status?: Database["public"]["Enums"]["pkg_status"]
           summary?: string
           terms?: string
@@ -238,7 +236,6 @@ export type Database = {
           nights?: number
           price_inr?: number
           rating?: number
-          reviews_count?: number
           status?: Database["public"]["Enums"]["pkg_status"]
           summary?: string
           terms?: string
@@ -275,56 +272,6 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
-      }
-      reviews: {
-        Row: {
-          author_name: string
-          body: string
-          created_at: string
-          id: string
-          images: Json
-          package_id: string | null
-          package_name: string
-          rating: number
-          status: Database["public"]["Enums"]["review_status"]
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          author_name?: string
-          body?: string
-          created_at?: string
-          id?: string
-          images?: Json
-          package_id?: string | null
-          package_name?: string
-          rating?: number
-          status?: Database["public"]["Enums"]["review_status"]
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          author_name?: string
-          body?: string
-          created_at?: string
-          id?: string
-          images?: Json
-          package_id?: string | null
-          package_name?: string
-          rating?: number
-          status?: Database["public"]["Enums"]["review_status"]
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "reviews_package_id_fkey"
-            columns: ["package_id"]
-            isOneToOne: false
-            referencedRelation: "packages"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       saved_packages: {
         Row: {
@@ -395,7 +342,6 @@ export type Database = {
       payment_status: "unpaid" | "partial" | "paid" | "refunded"
       pkg_category: "domestic" | "international"
       pkg_status: "active" | "inactive" | "sold_out" | "draft"
-      review_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -528,7 +474,6 @@ export const Constants = {
       payment_status: ["unpaid", "partial", "paid", "refunded"],
       pkg_category: ["domestic", "international"],
       pkg_status: ["active", "inactive", "sold_out", "draft"],
-      review_status: ["pending", "approved", "rejected"],
     },
   },
 } as const

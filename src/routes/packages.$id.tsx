@@ -1,11 +1,10 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Star, Check, X, MessageCircle, CalendarDays } from "lucide-react";
 import {
   bookingSchema,
-  fetchApprovedReviews,
   fetchPackageById,
   itineraryOf,
   listOf,
@@ -48,11 +47,6 @@ function PackageDetail() {
     queryKey: ["package", id],
     queryFn: () => fetchPackageById(id),
   });
-  const { data: reviews } = useQuery({
-    queryKey: ["reviews", id],
-    queryFn: () => fetchApprovedReviews(id),
-  });
-
   useReveal(pkg?.id);
 
   const [form, setForm] = useState({
@@ -165,8 +159,7 @@ function PackageDetail() {
               </span>
               <span className="chip">{pkg.locations_count} destinations</span>
               <span className="chip">
-                <Star className="size-3 fill-current text-primary" /> {pkg.rating} (
-                {pkg.reviews_count})
+                <Star className="size-3 fill-current text-primary" /> {pkg.rating}
               </span>
               <span className="chip">{pkg.country}</span>
             </div>
@@ -257,32 +250,6 @@ function PackageDetail() {
             </div>
           </div>
 
-          <h2 className="mt-10 text-[24px]">Traveller reviews</h2>
-          <div className="mt-4 grid gap-3">
-            {(reviews ?? []).length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                No reviews yet for this package.{" "}
-                <Link to="/reviews" className="text-primary underline">
-                  Write the first one
-                </Link>
-                .
-              </p>
-            ) : (
-              (reviews ?? []).map((r) => (
-                <blockquote key={r.id} className="rounded-3xl border border-border bg-card p-5">
-                  <div className="flex gap-0.5 text-primary">
-                    {Array.from({ length: r.rating }).map((_, s) => (
-                      <Star key={s} className="size-3.5 fill-current" />
-                    ))}
-                  </div>
-                  <p className="mt-2 text-[14px] text-muted-foreground">{r.body}</p>
-                  <footer className="mt-3 font-mono text-[11px] text-muted-foreground">
-                    {r.author_name || "Traveller"}
-                  </footer>
-                </blockquote>
-              ))
-            )}
-          </div>
         </div>
 
         <aside className="lg:col-span-5">

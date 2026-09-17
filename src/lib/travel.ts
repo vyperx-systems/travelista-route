@@ -4,7 +4,6 @@ import type { Database } from "@/integrations/supabase/types";
 
 export type Package = Database["public"]["Tables"]["packages"]["Row"];
 export type Booking = Database["public"]["Tables"]["bookings"]["Row"];
-export type Review = Database["public"]["Tables"]["reviews"]["Row"];
 export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
 export type ItineraryDay = { day: number; title: string; items: string[] };
@@ -20,7 +19,7 @@ export function listOf(value: unknown): string[] {
 }
 
 export const PACKAGE_SELECT =
-  "id, code, name, destination, country, category, summary, description, cover_image, days, nights, price_inr, max_travelers, locations_count, rating, reviews_count, is_featured, status, itinerary, inclusions, exclusions, terms, cancellation_policy, created_at";
+  "id, code, name, destination, country, category, summary, description, cover_image, days, nights, price_inr, max_travelers, locations_count, rating, is_featured, status, itinerary, inclusions, exclusions, terms, cancellation_policy, created_at";
 
 export async function fetchPackages(filters?: {
   category?: "domestic" | "international" | undefined;
@@ -61,14 +60,6 @@ export async function fetchPackageById(id: string) {
   return data as Package | null;
 }
 
-export async function fetchApprovedReviews(packageId?: string) {
-  let query = supabase.from("reviews").select("*").eq("status", "approved");
-  if (packageId) query = query.eq("package_id", packageId);
-  const { data, error } = await query.order("created_at", { ascending: false }).limit(30);
-  if (error) throw error;
-  return (data ?? []) as Review[];
-}
-
 export const signupSchema = z
   .object({
     fullName: z.string().trim().min(2, "Enter your full name").max(80),
@@ -96,12 +87,6 @@ export const bookingSchema = z.object({
   travel_date: z.string().min(1, "Choose a travel date"),
   special_requirements: z.string().trim().max(500).optional().default(""),
   notes: z.string().trim().max(500).optional().default(""),
-});
-
-export const reviewSchema = z.object({
-  rating: z.coerce.number().int().min(1).max(5),
-  body: z.string().trim().min(12, "Tell us a little more").max(1200),
-  package_id: z.string().uuid("Choose a package"),
 });
 
 export const packageFormSchema = z.object({
