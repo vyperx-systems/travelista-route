@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-Cltr0gcK.js";import{t}from"./PackageBrowser-DBk_gc2O.js";var n=e(),r=()=>(0,n.jsx)(t,{category:`international`,title:`Beyond the border`,intro:`Skyline nights in Dubai, terraces in Bali and lagoons in the Maldives — visa guidance, transfers and stays handled.`});export{r as component};
