@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-Cltr0gcK.js";import{t}from"./PackageBrowser-bEVfZ3TE.js";var n=e(),r=()=>(0,n.jsx)(t,{category:`domestic`,title:`India, unhurried`,intro:`Houseboats on the Dal, tea slopes in Munnar, desert forts in Rajasthan and pine valleys in Himachal — all planned end to end.`});export{r as component};
