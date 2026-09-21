@@ -6,10 +6,10 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  // This project deploys through Wrangler to Cloudflare Workers.
-  // Keep the explicit target so deployment always receives Worker output.
+  // Vercel consumes the Build Output API bundle emitted by Nitro.
+  // Do not use the Cloudflare preset here: Vercel cannot run a Worker module.
   nitro: {
-    preset: "cloudflare_module",
+    preset: "vercel",
     // Some clients still request this conventional path even with an explicit SVG icon.
     // Keep it out of the SSR catch-all, which is not an asset handler.
     routeRules: { "/favicon.ico": { redirect: "/favicon.svg" } },
