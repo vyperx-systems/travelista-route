@@ -6,17 +6,16 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  // The app is deployed on Vercel, so emit Vercel's serverless-function layout
-  // instead of the package's Cloudflare default.
+  // This project deploys through Wrangler to Cloudflare Workers.
+  // Keep the explicit target so deployment always receives Worker output.
   nitro: {
-    preset: "vercel",
+    preset: "cloudflare_module",
     // Some clients still request this conventional path even with an explicit SVG icon.
     // Keep it out of the SSR catch-all, which is not an asset handler.
     routeRules: { "/favicon.ico": { redirect: "/favicon.svg" } },
   },
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
+    // Redirect TanStack Start's bundled server entry to src/server.ts.
     server: { entry: "server" },
   },
 });
