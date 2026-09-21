@@ -1,5 +1,6 @@
 globalThis.__nitro_main__ = import.meta.url;
-import { i as HTTPError, n as defineLazyEventHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
+import { a as HTTPError, n as H3Core, r as defineLazyEventHandler, t as redirect$1 } from "./_libs/h3+rou3+srvx.mjs";
+import { n as withQuery, r as withoutBase, t as joinURL } from "./_libs/ufo.mjs";
 import { r as NodeResponse } from "./_libs/h3-v2+rou3+srvx.mjs";
 //#region #nitro-vite-setup
 function lazyService(loader) {
@@ -17,10 +18,42 @@ globalThis.__nitro_vite_envs__ = services;
 var headers = ((m) => function headersRouteRule(event) {
 	for (const [key, value] of Object.entries(m.options || {})) event.res.headers.set(key, value);
 });
+var redirect = ((m) => function redirectRouteRule(event) {
+	let target = m.options?.to;
+	if (!target) return;
+	if (target.endsWith("/**")) {
+		let targetPath = event.url.pathname + event.url.search;
+		const strpBase = m.options._redirectStripBase;
+		if (strpBase) {
+			if (!isPathInScope(event.url.pathname, strpBase)) throw new HTTPError({ status: 400 });
+			targetPath = withoutBase(targetPath, strpBase);
+		} else if (targetPath.startsWith("//")) targetPath = targetPath.replace(/^\/+/, "/");
+		target = joinURL(target.slice(0, -3), targetPath);
+	} else if (event.url.search) target = withQuery(target, Object.fromEntries(event.url.searchParams));
+	return redirect$1(target, m.options?.status);
+});
+function isPathInScope(pathname, base) {
+	let canonical;
+	try {
+		const pre = pathname.replace(/%2f/gi, "/").replace(/%5c/gi, "\\");
+		canonical = new URL(pre, "http://_").pathname;
+	} catch {
+		return false;
+	}
+	return !base || canonical === base || canonical.startsWith(base + "/");
+}
 //#endregion
 //#region #nitro/virtual/routing
 var findRouteRules = /* @__PURE__ */ (() => {
 	const $0 = [{
+		name: "redirect",
+		route: "/favicon.ico",
+		handler: redirect,
+		options: {
+			"to": "/favicon.svg",
+			"status": 307
+		}
+	}], $1 = [{
 		name: "headers",
 		route: "/assets/**",
 		handler: headers,
@@ -29,10 +62,11 @@ var findRouteRules = /* @__PURE__ */ (() => {
 	return (m, p) => {
 		let r = [];
 		if (p.charCodeAt(p.length - 1) === 47) p = p.slice(0, -1) || "/";
+		if (p === "/favicon.ico") r.unshift({ data: $0 });
 		let s = p.split("/");
 		if (s.length > 1) {
 			if (s[1] === "assets") r.unshift({
-				data: $0,
+				data: $1,
 				params: { "_": s.slice(2).join("/") }
 			});
 		}

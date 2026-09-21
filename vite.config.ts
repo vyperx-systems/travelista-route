@@ -8,7 +8,12 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 export default defineConfig({
   // The app is deployed on Vercel, so emit Vercel's serverless-function layout
   // instead of the package's Cloudflare default.
-  nitro: { preset: "vercel" },
+  nitro: {
+    preset: "vercel",
+    // Some clients still request this conventional path even with an explicit SVG icon.
+    // Keep it out of the SSR catch-all, which is not an asset handler.
+    routeRules: { "/favicon.ico": { redirect: "/favicon.svg" } },
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

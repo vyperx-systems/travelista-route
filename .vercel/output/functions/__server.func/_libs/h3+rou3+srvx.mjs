@@ -784,4 +784,26 @@ function routeHandler(route) {
 	return data.middleware?.length ? data["~composed"] ??= composeHandler(data.middleware, data.handler) : data.handler;
 }
 //#endregion
-export { HTTPError as i, defineLazyEventHandler as n, toRequest as r, H3Core as t };
+//#region node_modules/nitro/node_modules/h3/dist/cors.mjs
+function redirect(location, status = 302, statusText) {
+	return new HTTPResponse(`<html><head><meta http-equiv="refresh" content="0; url=${escapeHtml(location)}" /></head></html>`, {
+		status,
+		statusText: statusText || (status === 301 ? "Moved Permanently" : "Found"),
+		headers: {
+			"content-type": "text/html; charset=utf-8",
+			location
+		}
+	});
+}
+var HTML_ESCAPES = {
+	"&": "&amp;",
+	"\"": "&quot;",
+	"'": "&#39;",
+	"<": "&lt;",
+	">": "&gt;"
+};
+function escapeHtml(str) {
+	return str.replace(/[&"'<>]/g, (c) => HTML_ESCAPES[c]);
+}
+//#endregion
+export { HTTPError as a, toRequest as i, H3Core as n, defineLazyEventHandler as r, redirect as t };
