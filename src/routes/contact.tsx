@@ -77,8 +77,7 @@ function ContactPage() {
                   className="field mt-1.5"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Ananya Sharma"
-                />
+                  placeholder="Ananya Sharma" />
               </label>
 
               <div className="sm:col-span-2">
@@ -89,8 +88,7 @@ function ContactPage() {
                       key={i}
                       type="button"
                       onClick={() => setInterest(i)}
-                      className={`chip ${interest === i ? "chip-on" : ""}`}
-                    >
+                      className={`chip ${interest === i ? "chip-on" : ""}`} >
                       {i}
                     </button>
                   ))}
@@ -104,8 +102,7 @@ function ContactPage() {
                   type="number"
                   min={1}
                   value={travellers}
-                  onChange={(e) => setTravellers(e.target.value)}
-                />
+                  onChange={(e) => setTravellers(e.target.value)} />
               </label>
               <label className="block">
                 <span className="label-mono">Preferred month</span>
@@ -113,8 +110,7 @@ function ContactPage() {
                   className="field mt-1.5"
                   value={month}
                   onChange={(e) => setMonth(e.target.value)}
-                  placeholder="November 2026"
-                />
+                  placeholder="November 2026"  />
               </label>
 
               <label className="block sm:col-span-2">
@@ -123,8 +119,7 @@ function ContactPage() {
                   className="field mt-1.5 min-h-27.5"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Flights from Kolkata, prefer boutique stays, one rest day…"
-                />
+                  placeholder="Flights from Kolkata, prefer boutique stays, one rest day…"  />
               </label>
             </div>
 
@@ -132,8 +127,7 @@ function ContactPage() {
               href={whatsappUrl(message)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground transition-[filter] hover:brightness-105"
-            >
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground transition-[filter] hover:brightness-105">
               <MessageCircle className="size-4" /> Enquire now on WhatsApp
             </a>
             <p className="mt-3 text-[12px] text-muted-foreground">
@@ -154,8 +148,7 @@ function ContactPage() {
                 key={item.label}
                 data-reveal
                 style={{ transitionDelay: `${i * 70}ms` }}
-                className="flex items-start gap-3 rounded-3xl border border-border bg-card p-5"
-              >
+                className="flex items-start gap-3 rounded-3xl border border-border bg-card p-5">
                 <item.icon className="mt-0.5 size-4 text-primary" />
                 <div>
                   <div className="label-mono">{item.label}</div>
@@ -170,8 +163,7 @@ function ContactPage() {
                 width={1600}
                 height={1000}
                 loading="lazy"
-                className="aspect-4/3 size-full object-cover"
-              />
+                className="aspect-4/3 size-full object-cover"  />
             </div>
           </div>
         </div>

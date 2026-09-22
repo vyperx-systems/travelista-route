@@ -21,7 +21,6 @@ export const Route = createFileRoute("/international")({
     <PackageBrowser
       category="international"
       title="Beyond the border"
-      intro="Skyline nights in Dubai, terraces in Bali and lagoons in the Maldives — visa guidance, transfers and stays handled."
-    />
+      intro="Skyline nights in Dubai, terraces in Bali and lagoons in the Maldives — visa guidance, transfers and stays handled."  />
   ),
 });

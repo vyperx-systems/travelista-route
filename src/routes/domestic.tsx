@@ -21,7 +21,6 @@ export const Route = createFileRoute("/domestic")({
     <PackageBrowser
       category="domestic"
       title="India, unhurried"
-      intro="Houseboats on the Dal, tea slopes in Munnar, desert forts in Rajasthan and pine valleys in Himachal — all planned end to end."
-    />
+      intro="Houseboats on the Dal, tea slopes in Munnar, desert forts in Rajasthan and pine valleys in Himachal — all planned end to end."/>
   ),
 });

@@ -61,22 +61,22 @@ function PackageDetail() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-[1240px] px-5 py-12 md:px-8">
-        <Skeleton className="h-[380px] rounded-3xl" />
+      <div className="mx-auto max-w-310 px-5 py-12 md:px-8">
+        <Skeleton className="h-95 rounded-3xl" />
       </div>
     );
   }
 
   if (!pkg) {
     return (
-      <div className="mx-auto max-w-[1240px] px-5 py-20 text-center md:px-8">
+      <div className="mx-auto max-w-310 px-5 py-20 text-center md:px-8">
         <h1 className="text-[28px]">Package not found</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           This package may have been removed by our team.
         </p>
-        <Link to="/domestic" className="chip mt-6 inline-flex">
+        <a href="/domestic" className="chip mt-6 inline-flex">
           Browse domestic tours
-        </Link>
+        </a>
       </div>
     );
   }
@@ -140,7 +140,7 @@ function PackageDetail() {
 
   return (
     <>
-      <section className="mx-auto max-w-[1240px] px-5 pt-10 md:px-8">
+      <section className="mx-auto max-w-310 px-5 pt-10 md:px-8">
         <div className="grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <ImageSlider
@@ -182,7 +182,7 @@ function PackageDetail() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1240px] gap-8 px-5 py-12 md:px-8 lg:grid-cols-12">
+      <section className="mx-auto grid max-w-310 gap-8 px-5 py-12 md:px-8 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <h2 className="text-[24px]">About this trip</h2>
           <p className="mt-3 whitespace-pre-line text-[14px] text-muted-foreground">
@@ -307,7 +307,7 @@ function PackageDetail() {
                 </label>
               </div>
               <textarea
-                className="field min-h-[86px]"
+                className="field min-h-21.5"
                 placeholder="Special requirements (optional)"
                 value={form.special_requirements}
                 onChange={(e) => setForm((f) => ({ ...f, special_requirements: e.target.value }))}

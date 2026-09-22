@@ -7,6 +7,7 @@ import { PackageCard } from "@/components/PackageCard";
 import { HeroSlider } from "@/components/HeroSlider";
 import { useReveal } from "@/hooks/useReveal";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Analytics } from "@vercel/analytics/react"
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,6 +55,7 @@ function Home() {
 
   return (
     <>
+    <Analytics/>
       <HeroSlider
         packages={heroPackages}
         eyebrow="Curated journeys · est. 2016"

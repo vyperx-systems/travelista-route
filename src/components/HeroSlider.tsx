@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { inr } from "@/lib/format";
 import type { Package } from "@/lib/travel";
 
@@ -87,8 +87,7 @@ export function HeroSlider({
       aria-label="Featured destinations"
       className="relative w-full overflow-hidden"
       onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+      onMouseLeave={() => setPaused(false)}>
       <div className="relative h-[78vh] min-h-130 w-full">
         {slides.map((s, i) => (
           <img
@@ -98,9 +97,7 @@ export function HeroSlider({
             loading={i === 0 ? "eager" : "lazy"}
             className={`absolute inset-0 size-full object-cover transition-all duration-1200 ease-soft ${
               i === index ? "scale-100 opacity-100" : "scale-105 opacity-0"
-            }`}
-          />
-        ))}
+            }`} />))}
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/35 to-black/25" />
 
         <div className="absolute inset-0 flex flex-col justify-end">
@@ -133,14 +130,12 @@ export function HeroSlider({
                     <Link
                       to="/packages/$id"
                       params={{ id: slides[index]!.id }}
-                      className="rounded-full bg-primary px-6 py-3 text-[13px] font-medium text-primary-foreground transition-[filter] hover:brightness-105"
-                    >
+                      className="rounded-full bg-primary px-6 py-3 text-[13px] font-medium text-primary-foreground transition-[filter] hover:brightness-105">
                       View details
                     </Link>
                   )}
                 </div>
               </div>
-
               {children && <div className="mt-8">{children}</div>}
             </div>
           </div>
